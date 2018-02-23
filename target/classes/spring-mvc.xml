@@ -10,27 +10,28 @@
 		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-	<context:component-scan base-package="wxtx.tbncrms.com.action"/>
-	<mvc:annotation-driven/>
-	
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/JSP/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+	<context:component-scan base-package="com.rs.wxmgr.action" />
+	<mvc:annotation-driven />
+
 	<!--配置MultipartResolver"。 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="200000000"></property>
-	</bean> 
-
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<!-- 自定义权限不足的提示页面 -->
-				<prop key="com.wxtx.auth.exception.TXLackPermissionException">redirect:IsUserInvalid/IsInvalidUser.html</prop>
-			</props>
-		</property>
 	</bean>
-	
+
+	<!-- thymeleaf -->
+	<bean id="templateResolver"
+		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/page/" />
+		<property name="suffix" value=".html" />
+		<property name="characterEncoding" value="UTF-8" />
+	</bean>
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="characterEncoding" value="UTF-8" />
+	</bean>
+
 </beans>
