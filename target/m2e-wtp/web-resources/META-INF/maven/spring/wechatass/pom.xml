@@ -67,6 +67,11 @@
 			<artifactId>javassist</artifactId>
 			<version>3.21.0-GA</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>1.9.22</version>
+		</dependency>
 
 		<!-- 日志依赖 -->
 		<dependency>

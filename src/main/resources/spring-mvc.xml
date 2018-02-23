@@ -25,6 +25,7 @@
 		<property name="prefix" value="/WEB-INF/page/" />
 		<property name="suffix" value=".html" />
 		<property name="characterEncoding" value="UTF-8" />
+		<property name="cacheable" value="false" />
 	</bean>
 	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />

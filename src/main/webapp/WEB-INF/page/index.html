@@ -3,8 +3,41 @@
 <head lang="en">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>Index</title>
+<link rel="stylesheet" type="text/css" href="/wechatass/Static/Bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/wechatass/Static/jQuery/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/wechatass/Static/Bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/wechatass/Static/Plugin/tableview/TableView.js"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function(){
+	var testTable = new TableView('testTable');
+	testTable.url = '/wechatass/getHistoryNcrInfoList';
+	testTable.initHeader([
+		{id:'index',name:'序号',width:30,align:'center',key:true},
+		{id:'username',name:'用户名',width:70,align:'center'},
+	]);
+	testTable.ajaxCallback = function(data){
+		var len = data["rows"].length;
+		for(var i=0;i<len;i++){
+			testTable.add({
+				index: i+1, 
+				username : data["rows"][i]["username"],
+			});
+		}
+	};
+	testTable.clearQueryComp = function(){
+	};
+	testTable.ajaxFailCallback = function(){
+		swal("提示", "网络故障", "error");
+	};
+	testTable.render();
+});
+/*]]>*/
+</script>
 </head>
 <body>
     <span th:text="${name}"></span>
+    
+    <div id="testTable"></div>
 </body>
 </html>
