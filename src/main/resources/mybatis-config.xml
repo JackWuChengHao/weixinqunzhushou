@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
  	<typeAliases>
-		<typeAlias type="wxtx.tbncrms.com.dao.pojo.TXOperateLog" alias="TXOperateLog"></typeAlias>
+		<typeAlias type="com.rs.wxmgr.entity.User" alias="User"></typeAlias>
 	</typeAliases>
 	
 	<plugins>
@@ -14,6 +14,6 @@
 	</plugins>
 	
 	<mappers>
-		<mapper resource="wxtx/tbncrms/com/dao/mapper/TXOperateLogMapper.xml"></mapper>
+		<mapper resource="mapper/TXUserMapper.xml"></mapper>
 	</mappers>
 </configuration>

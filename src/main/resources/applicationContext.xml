@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-	<context:component-scan base-package="wxtx.tbncrms.com"></context:component-scan>
+	<context:component-scan base-package="com.rs.wxmgr"></context:component-scan>
 	
 	<!-- properties配置文件导入 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -22,7 +22,7 @@
 	</bean>
 
 	<!-- 数据库配置 -->
-<!-- 	<import resource="classpath:spring-database.xml"/> -->
+	<import resource="classpath:spring-database.xml"/>
 	<!--定时任务配置 -->
 <!-- 	<import resource="classpath:spring-quartz.xml"/> -->
 	

@@ -10,23 +10,6 @@
 		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-<!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> -->
-<!-- 		<property name="driverClass" value="${jdbc.driverClass}"></property> -->
-<!-- 		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property> -->
-<!-- 		<property name="user" value="${jdbc.user}"></property> -->
-<!-- 		<property name="password" value="${jdbc.password}"></property> -->
-		
-<!--  		<property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property> -->
-<!--  		<property name="minPoolSize" value="${jdbc.minPoolSize}"></property> -->
-<!--  		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property> -->
-<!--  		<property name="maxIdleTime" value="${jdbc.maxIdleTime}"></property> -->
-<!--  		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}"></property> -->
- 		
-<!--  		<property name="testConnectionOnCheckin" value="true"></property> -->
-<!--  		<property name="testConnectionOnCheckout" value="false"></property> -->
-<!--  		<property name="idleConnectionTestPeriod" value="600"></property> -->
-<!-- 	</bean> -->
-	
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driverClass}"></property>
 		<property name="url" value="${jdbc.jdbcUrl}"></property>

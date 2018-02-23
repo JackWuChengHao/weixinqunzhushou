@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+	<resultMap id="UserMap" type="User">
+		<id property="id" column="id"></id>
+		<result property="username" column="username"></result>
+	</resultMap>
+	
+	<select id="selectUserList" parameterType="map" resultMap="UserMap">
+		select * from User
+	</select>
+	
+	<select id="selectUserById" parameterType="int" resultMap="UserMap">
+		select * from User where id = #{id}
+	</select>
+	<insert id="insertUser" parameterType="User" >
+		insert into T_User(username)
+	</insert>
+	
+</mapper>
