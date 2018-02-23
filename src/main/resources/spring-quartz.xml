@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/jee  http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!-- 检查措施是否延期，延期则邮件通知  -->
+	<bean id="checkMeasureDelaySchedulerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="name" value="checkMeasureDelaySchedulerJob" />
+		<property name="group" value="checkMeasureDelaySchedulerJob_group" />
+		<property name="jobClass" value="wxtx.tbncrms.com.quartz.job.TXNcrCheckMeasureDelaySchedulerJob" />
+		<property name="durability" value="true" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="checkMeasureDelaySchedulerJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="name" value="checkMeasureDelaySchedulerJobCronTrigger" />
+		<property name="group" value="checkMeasureDelaySchedulerJobCronTrigger_group" />
+		<property name="jobDetail" ref="checkMeasureDelaySchedulerJob" />
+		<property name="cronExpression" value="35 * * * * ?" />
+	</bean>
+
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="checkMeasureDelaySchedulerJobCronTrigger"/>
+			</list>
+		</property>
+	</bean>
+
+</beans>

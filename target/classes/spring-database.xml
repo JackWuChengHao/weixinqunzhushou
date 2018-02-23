@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/jee  http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+<!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> -->
+<!-- 		<property name="driverClass" value="${jdbc.driverClass}"></property> -->
+<!-- 		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property> -->
+<!-- 		<property name="user" value="${jdbc.user}"></property> -->
+<!-- 		<property name="password" value="${jdbc.password}"></property> -->
+		
+<!--  		<property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property> -->
+<!--  		<property name="minPoolSize" value="${jdbc.minPoolSize}"></property> -->
+<!--  		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property> -->
+<!--  		<property name="maxIdleTime" value="${jdbc.maxIdleTime}"></property> -->
+<!--  		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}"></property> -->
+ 		
+<!--  		<property name="testConnectionOnCheckin" value="true"></property> -->
+<!--  		<property name="testConnectionOnCheckout" value="false"></property> -->
+<!--  		<property name="idleConnectionTestPeriod" value="600"></property> -->
+<!-- 	</bean> -->
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClass}"></property>
+		<property name="url" value="${jdbc.jdbcUrl}"></property>
+		<property name="username" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		
+ 		<property name="initialSize" value="${jdbc.initialPoolSize}"></property>
+ 		<property name="minIdle" value="${jdbc.minPoolSize}"></property>
+ 		<property name="maxTotal" value="${jdbc.maxPoolSize}"></property>
+ 		
+ 		<property name="testOnBorrow" value="true"></property>
+ 		<property name="testOnReturn" value="true"></property>
+ 		<property name="testWhileIdle" value="true"></property>
+ 		
+ 		<property name="validationQuery" value="select 1"></property>
+ 		<property name="validationQueryTimeout" value="3"></property>
+ 		<property name="minEvictableIdleTimeMillis" value="600000"></property>
+ 		<property name="numTestsPerEvictionRun" value="3"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
