@@ -3,10 +3,14 @@ package com.rs.wxmgr.wechat;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+import com.rs.wxmgr.wechat.common.WXContact;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
 import com.rs.wxmgr.wechat.utils.InforUtils;
 import com.rs.wxmgr.wechat.utils.LoginUtils;
+import com.rs.wxmgr.wechat.utils.MessageUtils;
 import com.rs.wxmgr.wechat.utils.SyncCheckUtils;
 
 public class Robot implements Closeable {
@@ -16,9 +20,29 @@ public class Robot implements Closeable {
 	 */
 	
 	private WXHttpClient client = null;
+	/**
+	 * 通讯录
+	 */
+	private WXContact contact = null;
+	/**
+	 * 是否在检查是否已经扫码
+	 */
+	private boolean isChecking = false;
+	/**
+	 * 是否在线
+	 */
+	private boolean isOnline = false;
+	
+	private Long lastConectTime = null;
+	
+	/**
+	 * 心跳包间隔最短时长
+	 */
+	private static final long SYNC_CHECK_INTERVAL = 1000;
 	
 	public Robot() {
 		client = new WXHttpClient();
+		contact = new WXContact();
 	}
 	
 	/**
@@ -41,27 +65,84 @@ public class Robot implements Closeable {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean checkLogin() throws Exception {
-		for(int i=0;i<10;i++) {
-			boolean isLogin = LoginUtils.testLogin(client);
-			if(isLogin) {
-				return true;
-			}
+	public void checkLogin() throws Exception {
+		if(isChecking || isOnline) {
+			return;
 		}
-		return false;
+		new Thread(new Runnable() {
+			public void run() {
+				Robot.this.isChecking = true;
+				long lastTime = System.currentTimeMillis();
+				while(true) {
+					try {
+						long currentTime = System.currentTimeMillis();
+						if(currentTime-lastTime<SYNC_CHECK_INTERVAL) {
+							Thread.sleep(SYNC_CHECK_INTERVAL);
+							lastTime = System.currentTimeMillis();
+						}
+						boolean isLogin = LoginUtils.testLogin(client);
+						if(isLogin) {
+							Robot.this.isChecking = false;
+							init();
+							break;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 	
-	public void syncCheck() throws Exception {
-		SyncCheckUtils.check(client);
+	/**
+	 * 心跳包保持账号在线
+	 * @throws Exception
+	 */
+	private void keepOnline() throws Exception {
+		new Thread(new Runnable() {
+			public void run() {
+				while(true) {
+					try {
+						Robot.this.isOnline = SyncCheckUtils.check(client);
+						if(!Robot.this.isOnline) {
+							break;
+						}
+						if(Robot.this.lastConectTime != null && 
+							System.currentTimeMillis()-Robot.this.lastConectTime<SYNC_CHECK_INTERVAL ) {
+							Thread.sleep(1000);
+						}
+						Robot.this.lastConectTime = System.currentTimeMillis();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
-
+	
 	public void init() throws Exception {
 		LoginUtils.redirect(client);
 		LoginUtils.init(client);
+		keepOnline();
 	}
 	
-	public String getInfo() throws Exception {
-		return InforUtils.getMemberist(client).toString();
+	/**
+	 * 获取联系人列表
+	 * @return
+	 * @throws Exception
+	 */
+	public WXContact getContact() throws Exception {
+		List<JSONObject> memberList = InforUtils.getMemberist(client);
+		contact.setMemberList(memberList);
+		return contact;
+	}
+	
+	public String testSendMeasure(String message,String username) throws Exception {
+		return MessageUtils.sendMessageByUsername(client, username, message);
+	}
+	
+	public String testSendroupMeasure(String message,String groupname) throws Exception {
+		return MessageUtils.sendMessageByUsername(client, groupname, message);
 	}
 	
 	public void close() throws IOException {

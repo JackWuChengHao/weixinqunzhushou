@@ -11,7 +11,20 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<context:component-scan base-package="com.rs.wxmgr.action" />
-	<mvc:annotation-driven />
+	
+	<mvc:annotation-driven>
+	    <mvc:message-converters>  
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>  
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+	            <property name="supportedMediaTypes">  
+	                <list>  
+	                    <value>text/plain;charset=utf-8</value>  
+	                    <value>text/html;charset=UTF-8</value>  
+	                </list>  
+	            </property>  
+	        </bean>  
+	    </mvc:message-converters>  
+	</mvc:annotation-driven>
 
 	<!--配置MultipartResolver"。 -->
 	<bean id="multipartResolver"

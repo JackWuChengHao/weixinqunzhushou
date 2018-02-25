@@ -20,6 +20,10 @@ import org.apache.http.impl.client.HttpClients;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.rs.wxmgr.wechat.entity.Account;
+import com.rs.wxmgr.wechat.entity.BaseRequest;
+import com.rs.wxmgr.wechat.entity.Pair;
+import com.rs.wxmgr.wechat.entity.SyncKey;
 
 public class WXHttpClient extends BasicCookieStore implements Serializable {
     

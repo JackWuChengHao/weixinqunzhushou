@@ -1,10 +1,13 @@
 package com.rs.wxmgr.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,34 +74,7 @@ public class TXTestAction {
 	public void downloadFile(HttpServletRequest request, HttpServletResponse response){
 		try {
 			response.getOutputStream().write(robot.getRQCode());
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-		}
-	}
-	
-	/**
-	 * 手机扫描二维码后,实现登录
-	 * @param request
-	 */
-	@RequestMapping(value="/checkLogin")
-	public void checkLogin(HttpServletRequest request){
-		try {
-			if(robot.checkLogin()) {
-				robot.init();
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
-		}
-	}
-	
-	/**
-	 * 轮询,保证账号不掉线,并获取相关消息信息
-	 * @param request
-	 */
-	@RequestMapping(value="/synccheck")
-	public void syncCheck(HttpServletRequest request){
-		try {
-			robot.syncCheck();
+			robot.checkLogin();
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}
@@ -108,12 +84,40 @@ public class TXTestAction {
 	 * 测试获取好友列表
 	 * @param request
 	 */
-	@RequestMapping(value="/testInfo")
-	public void testInfo(HttpServletRequest request){
+	@ResponseBody
+	@RequestMapping(value="/getmember")
+	public JSONObject testInfo(HttpServletRequest request){
+		TXResponse response = TXResponseFactory.CreateSuccess();
+		List<JSONObject> memberList = new ArrayList<JSONObject>();
 		try {
-			System.out.println(robot.getInfo());
+			String type = request.getParameter("type");
+			if("group".equals(type)){
+				memberList = robot.getContact().getGroupList();
+			} else if("normal".equals(type)) {
+				memberList = robot.getContact().getMemberList();
+			}
+			response.put("rows", memberList);
+			response.put("totalpage",1);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}
+		return response.getData();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/sendmessage")
+	public String testMessage(@RequestBody HashMap<String,Object> data){
+		String result = null;
+		try {
+			String message = data.get("message").toString();
+			String username = data.get("username").toString();
+			if(StringUtils.isNotBlank(message) && StringUtils.isNotBlank(username)) {
+				System.out.println(robot.testSendMeasure(message,username));
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return result;
+	}
+	
 }

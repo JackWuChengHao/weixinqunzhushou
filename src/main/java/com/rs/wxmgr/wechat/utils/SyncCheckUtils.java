@@ -18,22 +18,28 @@ import org.apache.http.entity.StringEntity;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
+import com.rs.wxmgr.wechat.entity.SyncKey;
 
 //import cn.lzxz1234.wxbot.vo.SyncKey;
 
 public class SyncCheckUtils {
 
-    public static void check(WXHttpClient client)
+	/**
+	 * 心跳包
+	 * @param client
+	 * @return 是否在线
+	 * @throws Exception
+	 */
+    public static boolean check(WXHttpClient client)
             throws Exception {
 
         String uuid = client.getUuid();
-        long checkTime = System.currentTimeMillis();
         CloseableHttpResponse resp = null;
         try {
             if(StringUtils.isEmpty(client.getSyncHost()))
                 testSyncCheck(client);
             // 获取不到同步服务器时出退出
-            if(StringUtils.isEmpty(client.getSyncHost())) return;
+            if(StringUtils.isEmpty(client.getSyncHost())) return false;
             
             client.setStatus("success");
             URI uri = new URIBuilder("https://" + client.getSyncHost() + "/cgi-bin/mmwebwx-bin/synccheck")
@@ -53,21 +59,25 @@ public class SyncCheckUtils {
             if(matcher.find()) {
                 String retcode = matcher.group(1);
                 String selector = matcher.group(2);
+            	System.out.println(uuid + " sync_check: " + retcode + "，" + selector);
                 
                 if("1100".equals(retcode)) { // 从微信客户端上登出
                 	client.setStatus("loginout");
                 	System.out.println(uuid + " 退出 " + 1100);
+                	return false;
                 } else if("1101".equals(retcode)){ // 从其它设备上登录了网页微信
                 	client.setStatus("loginout");
                 	System.out.println(uuid + " 退出 " + 1101);
+                	return false;
                 } else if("1102".equals(retcode)) { // 不知道啥问题，反正就是退出登录了
                 	client.setStatus("loginout");
                 	System.out.println(uuid + " 退出 " + 1102);
+                	return false;
                 } else if("0".equals(retcode)) {
                     if(!"0".equals(selector)) {
                         JSONObject dict = sync(client);
                         if(dict != null) {
-                        	System.out.println(uuid + " sync_check: " + retcode + "，" + selector);
+                        	System.out.println(dict);
                             if("2".equals(selector)) { // 有新消息 
 //                                WXUtils.submit(new HandleMsgEvent(uuid, dict));
                             } else if("3".equals(selector)) { // 未知
@@ -83,17 +93,15 @@ public class SyncCheckUtils {
                             }
                         }
                     }
-                } else {
-                	System.out.println(uuid + " sync_check: " + retcode + "，" + selector);
                 }
             }
         } catch(Exception ex) {
         	ex.printStackTrace();
+        	return false;
         } finally {
             if(resp != null) resp.close();
         }
-        checkTime = System.currentTimeMillis() - checkTime;
-        if(checkTime < 800) Thread.sleep(1000 - checkTime);
+        return true;
     }
 
     private static void testSyncCheck(WXHttpClient client) throws Exception {
@@ -151,7 +159,7 @@ public class SyncCheckUtils {
             String data = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
             JSONObject dict = JSON.parseObject(data);
             if(dict.getJSONObject("BaseResponse").getInteger("Ret") == 0) {
-//            	client.setSyncKey(dict.getObject("SyncCheckKey", SyncKey.class));
+            	client.setSyncKey(dict.getObject("SyncCheckKey", SyncKey.class));
                 return dict;
             }
         } finally {

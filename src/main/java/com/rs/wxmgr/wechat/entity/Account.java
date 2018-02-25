@@ -1,4 +1,4 @@
-package com.rs.wxmgr.wechat.common;
+package com.rs.wxmgr.wechat.entity;
 
 import java.io.Serializable;
 

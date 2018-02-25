@@ -32,9 +32,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.rs.wxmgr.wechat.common.Account;
-import com.rs.wxmgr.wechat.common.SyncKey;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
+import com.rs.wxmgr.wechat.entity.Account;
+import com.rs.wxmgr.wechat.entity.SyncKey;
 
 public class LoginUtils {
 
@@ -91,7 +91,7 @@ public class LoginUtils {
     }
     
     /**
-     * 测试是否已经扫码登录
+     * 测试是否已经扫码确认登录
      * @param client
      * @param uuid
      * @return
