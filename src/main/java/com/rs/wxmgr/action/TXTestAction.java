@@ -37,27 +37,27 @@ public class TXTestAction {
 	
 	private Robot robot;
 
-	/**
-	 * 扫码页面
-	 * @param map
-	 * @return
-	 */
-	@RequestMapping("/weqrpage")
-    public String weqrPage(ModelMap map){
-		if(robot==null || robot.isClose()) {
-			robot = new Robot(testService);
-		}
-        return "/qr";
-    }
-	/**
-	 * 微信登录成功页面
-	 * @param map
-	 * @return
-	 */
-	@RequestMapping("/info")
-    public String infoPage(ModelMap map){
-        return "/info";
-    }
+//	/**
+//	 * 扫码页面
+//	 * @param map
+//	 * @return
+//	 */
+//	@RequestMapping("/weqrpage")
+//    public String weqrPage(ModelMap map){
+//		if(robot==null || robot.isClose()) {
+//			robot = new Robot(testService);
+//		}
+//        return "/qr";
+//    }
+//	/**
+//	 * 微信登录成功页面
+//	 * @param map
+//	 * @return
+//	 */
+//	@RequestMapping("/info")
+//    public String infoPage(ModelMap map){
+//        return "/info";
+//    }
 	
 	@ResponseBody
 	@RequestMapping("/getWelcomeMsgList")
@@ -100,6 +100,9 @@ public class TXTestAction {
 	@RequestMapping(value="/wechatlogin")
 	public void wechatlogin(HttpServletRequest request, HttpServletResponse response){
 		try {
+			if(robot==null || robot.isClose()) {
+				robot = new Robot(testService);
+			}
 			response.getOutputStream().write(robot.getRQCode());
 			robot.checkLogin();
 		} catch (Exception e) {
@@ -117,7 +120,11 @@ public class TXTestAction {
 	public JSONObject checklogin(HttpServletRequest request){
 		TXResponse response = TXResponseFactory.CreateSuccess();
 		try {
-			response.put("data", robot.isOnline());
+			if(robot == null) {
+				response.put("data", false);
+			} else {
+				response.put("data", robot.isOnline());
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}

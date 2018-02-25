@@ -232,6 +232,7 @@ public class Robot implements Closeable {
 			@Override
 			public void run() {
 				try {
+					getContact();
 					sendGroupMessageForUserAdd();
 				} catch (Exception e) {
 					logger.error(e.getMessage(), e);

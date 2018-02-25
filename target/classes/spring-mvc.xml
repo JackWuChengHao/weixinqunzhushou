@@ -33,19 +33,19 @@
 	</bean>
 
 	<!-- thymeleaf -->
-	<bean id="templateResolver"
-		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
-		<property name="prefix" value="/WEB-INF/page/" />
-		<property name="suffix" value=".html" />
-		<property name="characterEncoding" value="UTF-8" />
-		<property name="cacheable" value="false" />
-	</bean>
-	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-		<property name="templateResolver" ref="templateResolver" />
-	</bean>
-	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-		<property name="templateEngine" ref="templateEngine" />
-		<property name="characterEncoding" value="UTF-8" />
-	</bean>
+<!-- 	<bean id="templateResolver" -->
+<!-- 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"> -->
+<!-- 		<property name="prefix" value="/WEB-INF/page/" /> -->
+<!-- 		<property name="suffix" value=".html" /> -->
+<!-- 		<property name="characterEncoding" value="UTF-8" /> -->
+<!-- 		<property name="cacheable" value="false" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine"> -->
+<!-- 		<property name="templateResolver" ref="templateResolver" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver"> -->
+<!-- 		<property name="templateEngine" ref="templateEngine" /> -->
+<!-- 		<property name="characterEncoding" value="UTF-8" /> -->
+<!-- 	</bean> -->
 
 </beans>

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	self.setInterval("checkLoginStatus()",1*1000);
+	checkLoginStatus();
 });
 
 /**
@@ -9,7 +9,9 @@ $(document).ready(function(){
 function checkLoginStatus(){
 	var result = sendAjax("/wechatass/checklogin");
 	// 登录成功
-	if(result["data"]==true){
-		window.location.href="/wechatass/";
+	if(result["data"]===true){
+		window.location.href="/wechatass/JSP/index.jsp";
+	} else {
+		window.location.href="/wechatass/JSP/qr.jsp";
 	}
 }

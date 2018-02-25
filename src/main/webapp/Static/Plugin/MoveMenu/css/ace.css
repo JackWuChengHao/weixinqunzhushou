@@ -214,7 +214,7 @@ body.breadcrumbs-fixed {
 	position: relative;
 	border: 1px solid #ccc;
 	border-width: 0 1px 0 0;
-	background-color: #223a5e
+	background-color: #fafafa;
 }
 
 .sidebar:before {
@@ -225,7 +225,7 @@ body.breadcrumbs-fixed {
 	bottom: 0;
 	top: 0;
 	z-index: -1;
-	background-color: #223a5e;
+	background-color: #fafafa;
 	border: 1px solid #ccc;
 	border-width: 0 1px 0 0
 }
@@ -254,7 +254,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 }
 
 .nav-list .open>a,.nav-list .open>a:hover,.nav-list .open>a:focus {
-	background-color: #223a5e
+	background-color: #fafafa
 }
 
 .nav-list>li>a,.nav-list .nav-header {
@@ -285,7 +285,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 	line-height: 36px;
 	padding: 0 16px 0 7px;
 	background-color: rgba(0,0,0,0);
-	color: #fff;
+	color: #223a5e;
 	text-shadow: none !important;
 	font-size: 13px;
 	text-decoration: none
@@ -307,7 +307,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 }
 
 .nav-list>li>a:hover {
-	background-color: #223a5e;
+	background-color: #fafafa;
 	color: #188ae2
 }
 
@@ -559,7 +559,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 
 .sidebar-collapse {
 	border-bottom: 0px solid #e0e0e0;
-	background-color: #223a5e;
+	background-color: #fafafa;
 	text-align: center;
 	padding: 3px 0;
 	position: relative

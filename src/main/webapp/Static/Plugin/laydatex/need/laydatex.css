@@ -1,0 +1,68 @@
+﻿/** 
+ 
+ @Name： laydatex 核心样式
+ @Author：贤心
+ @Site：http://sentsin.com/layui/laydatex
+ 
+**/
+
+html{_background-image:url(about:blank); _background-attachment:fixed;}
+.laydatex_body .laydatex_box, .laydatex_body .laydatex_box *{font-family:"华文细黑"; margin:0; padding:0; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box;}
+.laydatex-icon,
+.laydatex-icon-dahong,
+.laydatex-icon-dahong{background-image:url(../skins/dahong/icon.png)}
+
+.laydatex_body .laydatex_box{width:240px; font:12px '\5B8B\4F53'; z-index:99999999; *margin:-2px 0 0 -2px; *overflow:hidden; _margin:0; _position:absolute!important; background-color:#fff;}
+.laydatex_body .laydatex_box li{list-style:none;}
+.laydatex_body .laydatex_box .laydatex_void{cursor:text!important;}
+.laydatex_body .laydatex_box a, .laydatex_body .laydatex_box a:hover{text-decoration:none; blr:expression(this.onFocus=this.blur()); cursor:pointer;}
+.laydatex_body .laydatex_box a:hover{text-decoration:none;}
+.laydatex_body .laydatex_box cite, .laydatex_body .laydatex_box label{position:absolute; width:0; height:0; border-width:5px; border-style:dashed; border-color:transparent; overflow:hidden; cursor:pointer;}
+.laydatex_body .laydatex_box .laydatex_yms, .laydatex_body .laydatex_box .laydatex_time{display:none;}
+.laydatex_body .laydatex_box .laydatex_show{display:block;}
+.laydatex_body .laydatex_box input{outline:0; font-size:14px; background-color:#fff;}
+.laydatex_body .laydatex_top{position:relative; height:26px; padding:5px; *width:100%; z-index:99;}
+.laydatex_body .laydatex_ym{position:relative; float:left; height:24px; cursor:pointer;}
+.laydatex_body .laydatex_ym input{float:left; height:24px; line-height:24px; text-align:center; border:none; cursor:pointer;}
+.laydatex_body .laydatex_ym .laydatex_yms{position:absolute; left: -1px; top: 24px; height:181px;}
+.laydatex_body .laydatex_y{width:121px; margin-right:6px;}
+.laydatex_body .laydatex_y input{width:64px; margin-right:15px;}
+.laydatex_body .laydatex_y .laydatex_yms{width:121px; text-align:center;}
+.laydatex_body .laydatex_y .laydatex_yms a{position:relative; display:block; height:20px;}
+.laydatex_body .laydatex_y .laydatex_yms ul{height:139px; padding:0; *overflow:hidden;}
+.laydatex_body .laydatex_y .laydatex_yms ul li{float:left; width:60px; height:20px; line-height: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.laydatex_body .laydatex_m{width:99px;}
+.laydatex_body .laydatex_m .laydatex_yms{width:99px; padding:0;}
+.laydatex_body .laydatex_m input{width:42px; margin-right:15px;}
+.laydatex_body .laydatex_m .laydatex_yms span{display:block; float:left; width:42px; margin: 5px 0 0 5px; line-height:24px; text-align:center; _display:inline;}
+.laydatex_body .laydatex_choose{display:block; float:left; position:relative; width:20px; height:24px;}
+.laydatex_body .laydatex_choose cite, .laydatex_body .laydatex_tab cite{left:50%; top:50%;}
+.laydatex_body .laydatex_chtop cite{margin:-7px 0 0 -5px; border-bottom-style:solid;}
+.laydatex_body .laydatex_chdown cite, .laydatex_body .laydatex_ym label{top:50%; margin:-2px 0 0 -5px; border-top-style:solid;}
+.laydatex_body .laydatex_chprev cite{margin:-5px 0 0 -7px;}
+.laydatex_body .laydatex_chnext cite{margin:-5px 0 0 -2px;}
+.laydatex_body .laydatex_ym label{right:28px;}
+.laydatex_body .laydatex_table{ width:230px; margin:0 5px; border-collapse:collapse; border-spacing:0px; }
+.laydatex_body .laydatex_table td{width:31px; height:19px; line-height:19px; text-align: center; cursor:pointer; font-size: 12px;}
+.laydatex_body .laydatex_table thead{height:22px; line-height:22px;}
+.laydatex_body .laydatex_table thead th{font-weight:400; font-size:12px; text-align:center;}
+.laydatex_body .laydatex_bottom{position:relative; height:22px; line-height:20px; padding:5px; font-size:12px;}
+.laydatex_body .laydatex_bottom #laydatex_hms{position: relative; z-index: 1; float:left; }
+.laydatex_body .laydatex_time{ position:absolute; left:5px; bottom: 26px; width:129px; height:125px; *overflow:hidden;}
+.laydatex_body .laydatex_time .laydatex_hmsno{ padding:5px 0 0 5px;}
+.laydatex_body .laydatex_time .laydatex_hmsno span{display:block; float:left; width:24px; height:19px; line-height:19px; text-align:center; cursor:pointer; *margin-bottom:-5px;}
+.laydatex_body .laydatex_time1{width:228px; height:154px;}
+.laydatex_body .laydatex_time1 .laydatex_hmsno{padding: 6px 0 0 8px;}
+.laydatex_body .laydatex_time1 .laydatex_hmsno span{width:21px; height:20px; line-height:20px;}
+.laydatex_body .laydatex_msg{left:49px; bottom:67px; width:141px; height:auto; overflow: hidden;}
+.laydatex_body .laydatex_msg p{padding:5px 10px;}
+.laydatex_body .laydatex_bottom li{float:left; height:20px; line-height:20px; border-right:none; font-weight:900;}
+.laydatex_body .laydatex_bottom .laydatex_sj{width:33px; text-align:center; font-weight:400;}
+.laydatex_body .laydatex_bottom input{float:left; width:21px; height:20px; line-height:20px; border:none; text-align:center; cursor:pointer; font-size:12px;  font-weight:400;}
+.laydatex_body .laydatex_bottom .laydte_hsmtex{height:20px; line-height:20px; text-align:center;}
+.laydatex_body .laydatex_bottom .laydte_hsmtex span{position:absolute; width:20px; top:0; right:0px; cursor:pointer;}
+.laydatex_body .laydatex_bottom .laydte_hsmtex span:hover{font-size:14px;}
+.laydatex_body .laydatex_bottom .laydatex_btn{position:absolute; right:5px; top:5px;}
+.laydatex_body .laydatex_bottom .laydatex_btn a{float:left; height:20px; padding:0 6px; _padding:0 5px;}
+.laydatex_body .laydatex_bottom .laydatex_v{position:absolute; left:10px; top:6px; font-family:"微软雅黑"; z-index:0;}
+
