@@ -4,6 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rs.wxmgr.wechat.common.WXContact;
@@ -14,7 +20,8 @@ import com.rs.wxmgr.wechat.utils.MessageUtils;
 import com.rs.wxmgr.wechat.utils.SyncCheckUtils;
 
 public class Robot implements Closeable {
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(Robot.class);
 	/*
 	 * tomcat，则catalina.sh增加：-Djsse.enableSNIExtension=false
 	 */
@@ -32,13 +39,20 @@ public class Robot implements Closeable {
 	 * 是否在线
 	 */
 	private boolean isOnline = false;
-	
+	/**
+	 * 最后一次心跳包连接时间
+	 */
 	private Long lastConectTime = null;
 	
 	/**
 	 * 心跳包间隔最短时长
 	 */
 	private static final long SYNC_CHECK_INTERVAL = 1000;
+	/**
+	 * 线程池
+	 */
+	private ThreadPoolExecutor threadPoolExecutor = 
+			new ThreadPoolExecutor(1, 10, 1, TimeUnit.MINUTES,new LinkedBlockingQueue<Runnable>());
 	
 	public Robot() {
 		client = new WXHttpClient();
@@ -69,7 +83,7 @@ public class Robot implements Closeable {
 		if(isChecking || isOnline) {
 			return;
 		}
-		new Thread(new Runnable() {
+		threadPoolExecutor.execute(new Runnable() {
 			public void run() {
 				Robot.this.isChecking = true;
 				long lastTime = System.currentTimeMillis();
@@ -87,11 +101,11 @@ public class Robot implements Closeable {
 							break;
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.error(e.getMessage(), e);
 					}
 				}
 			}
-		}).start();
+		});
 	}
 	
 	/**
@@ -99,7 +113,7 @@ public class Robot implements Closeable {
 	 * @throws Exception
 	 */
 	private void keepOnline() throws Exception {
-		new Thread(new Runnable() {
+		threadPoolExecutor.execute(new Runnable() {
 			public void run() {
 				while(true) {
 					try {
@@ -113,14 +127,19 @@ public class Robot implements Closeable {
 						}
 						Robot.this.lastConectTime = System.currentTimeMillis();
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.error(e.getMessage(), e);
 					}
 				}
 			}
-		}).start();
+		});
 	}
 	
-	public void init() throws Exception {
+	/**
+	 * 扫码后重定向到指定链接,完成登录。
+	 * 并打开心跳包保持在线
+	 * @throws Exception
+	 */
+	private void init() throws Exception {
 		LoginUtils.redirect(client);
 		LoginUtils.init(client);
 		keepOnline();
@@ -132,17 +151,33 @@ public class Robot implements Closeable {
 	 * @throws Exception
 	 */
 	public WXContact getContact() throws Exception {
+		if(!isOnline) {
+			return null;
+		}
 		List<JSONObject> memberList = InforUtils.getMemberist(client);
 		contact.setMemberList(memberList);
 		return contact;
 	}
 	
+	/**
+	 * 向群或好友发送消息
+	 * @param message
+	 * @param username
+	 * @return
+	 * @throws Exception
+	 */
 	public String testSendMeasure(String message,String username) throws Exception {
+		if(!isOnline) {
+			return null;
+		}
 		return MessageUtils.sendMessageByUsername(client, username, message);
 	}
-	
-	public String testSendroupMeasure(String message,String groupname) throws Exception {
-		return MessageUtils.sendMessageByUsername(client, groupname, message);
+	/**
+	 * 是否在线
+	 * @return
+	 */
+	public boolean isOnline() {
+		return isOnline;
 	}
 	
 	public void close() throws IOException {

@@ -39,10 +39,28 @@ public class TXTestAction {
 	
 	private Robot robot = new Robot();
 
-	@RequestMapping("/index")
-    public String index(ModelMap map){
+	@RequestMapping("/test")
+    public String test(ModelMap map){
         map.put("name", "wxtx");
-        return "/index";
+        return "/test";
+    }
+	/**
+	 * 扫码页面
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/weqrpage")
+    public String weqrPage(ModelMap map){
+        return "/qr";
+    }
+	/**
+	 * 微信登录成功页面
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/info")
+    public String infoPage(ModelMap map){
+        return "/info";
     }
 	
 	@ResponseBody
@@ -71,7 +89,7 @@ public class TXTestAction {
 	 * @param response
 	 */
 	@RequestMapping(value="/wechatlogin")
-	public void downloadFile(HttpServletRequest request, HttpServletResponse response){
+	public void wechatlogin(HttpServletRequest request, HttpServletResponse response){
 		try {
 			response.getOutputStream().write(robot.getRQCode());
 			robot.checkLogin();
@@ -81,13 +99,36 @@ public class TXTestAction {
 	}
 	
 	/**
+	 * 检查微信机器人是否在线
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/checklogin")
+	public JSONObject checklogin(HttpServletRequest request){
+		TXResponse response = TXResponseFactory.CreateSuccess();
+		try {
+			response.put("data", robot.isOnline());
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return response.getData();
+	}
+	
+	/**
 	 * 测试获取好友列表
 	 * @param request
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getmember")
-	public JSONObject testInfo(HttpServletRequest request){
+	public JSONObject getMember(HttpServletRequest request){
 		TXResponse response = TXResponseFactory.CreateSuccess();
+
+		if(!robot.isOnline()) {
+			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
+			return response.getData();
+		}
+		
 		List<JSONObject> memberList = new ArrayList<JSONObject>();
 		try {
 			String type = request.getParameter("type");
@@ -103,12 +144,21 @@ public class TXTestAction {
 		}
 		return response.getData();
 	}
-	
+	/**
+	 * 发送消息
+	 * @param data
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/sendmessage")
 	public String testMessage(@RequestBody HashMap<String,Object> data){
 		String result = null;
+		
 		try {
+			if(!robot.isOnline()) {
+				return result;
+			}
+			
 			String message = data.get("message").toString();
 			String username = data.get("username").toString();
 			if(StringUtils.isNotBlank(message) && StringUtils.isNotBlank(username)) {

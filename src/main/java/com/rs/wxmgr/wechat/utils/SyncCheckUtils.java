@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,6 +26,7 @@ import com.rs.wxmgr.wechat.entity.SyncKey;
 
 public class SyncCheckUtils {
 
+	private static final Logger logger = LoggerFactory.getLogger(SyncCheckUtils.class);
 	/**
 	 * 心跳包
 	 * @param client
@@ -59,7 +62,7 @@ public class SyncCheckUtils {
             if(matcher.find()) {
                 String retcode = matcher.group(1);
                 String selector = matcher.group(2);
-            	System.out.println(uuid + " sync_check: " + retcode + "，" + selector);
+                logger.info(uuid + " sync_check: " + retcode + "，" + selector);
                 
                 if("1100".equals(retcode)) { // 从微信客户端上登出
                 	client.setStatus("loginout");
