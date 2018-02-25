@@ -22,7 +22,7 @@
 	</bean>
 
 	<!-- 数据库配置 -->
-<!-- 	<import resource="classpath:spring-database.xml"/> -->
+	<import resource="classpath:spring-database.xml"/>
 	<!--定时任务配置 -->
 <!-- 	<import resource="classpath:spring-quartz.xml"/> -->
 	

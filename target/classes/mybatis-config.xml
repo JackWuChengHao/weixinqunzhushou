@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
  	<typeAliases>
-		<typeAlias type="com.rs.wxmgr.entity.User" alias="User"></typeAlias>
+		<typeAlias type="com.rs.wxmgr.entity.WelcomeMsg" alias="WelcomeMsg"></typeAlias>
 	</typeAliases>
 	
 	<plugins>
@@ -14,6 +14,6 @@
 	</plugins>
 	
 	<mappers>
-		<mapper resource="mapper/TXUserMapper.xml"></mapper>
+		<mapper resource="mapper/TXWelcomeMsgMapper.xml"></mapper>
 	</mappers>
 </configuration>

@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.rs.wxmgr.action.entity.TXResponse;
 import com.rs.wxmgr.action.entity.TXResponseFactory;
-import com.rs.wxmgr.action.entity.TXTableRequest;
 import com.rs.wxmgr.common.content.TXContentFlag;
 import com.rs.wxmgr.common.content.TXErrorCode;
 import com.rs.wxmgr.common.exception.TXException;
-import com.rs.wxmgr.entity.User;
+import com.rs.wxmgr.entity.WelcomeMsg;
 import com.rs.wxmgr.service.TestService;
 import com.rs.wxmgr.wechat.Robot;
 
@@ -37,13 +35,8 @@ public class TXTestAction {
 	@Autowired
 	private TestService testService;
 	
-	private Robot robot = new Robot();
+	private Robot robot;
 
-	@RequestMapping("/test")
-    public String test(ModelMap map){
-        map.put("name", "wxtx");
-        return "/test";
-    }
 	/**
 	 * 扫码页面
 	 * @param map
@@ -51,8 +44,8 @@ public class TXTestAction {
 	 */
 	@RequestMapping("/weqrpage")
     public String weqrPage(ModelMap map){
-		if(robot.isClose()) {
-			robot = new Robot();
+		if(robot==null || robot.isClose()) {
+			robot = new Robot(testService);
 		}
         return "/qr";
     }
@@ -67,20 +60,33 @@ public class TXTestAction {
     }
 	
 	@ResponseBody
-	@RequestMapping("/getHistoryNcrInfoList")
-	public JSONObject getHistoryNcrInfoList(@RequestBody HashMap<String,Object> data) {
+	@RequestMapping("/getWelcomeMsgList")
+	public JSONObject getHistoryNcrInfoList(HttpServletRequest request) {
 		TXResponse response = TXResponseFactory.CreateSuccess();
 		try {
-			TXTableRequest tableRequest = TXTableRequest.GetFromRequest(data);
-			PageList<User> userList = (PageList<User>) 
-					testService.selectUserList(tableRequest.createPageBounds());
-			response.put("rows", userList);
-			response.put("totalpage",userList.getPaginator().getTotalPages());
+			List<WelcomeMsg> messageList = testService.selectMessageList();
+			response.put("rows", messageList);
 		} catch (TXException e) {
 			logger.error(e.getMessage(), e);
 			response = TXResponseFactory.CreateFail(TXContentFlag.TX_EXCEPTION_CODE,e.getMessage());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
+		}
+		return response.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/addWelcomeMsg")
+	public JSONObject addWelcomeMsg(@RequestBody HashMap<String,Object> data){
+		TXResponse response = TXResponseFactory.CreateSuccess();
+		try {
+			String message = data.get("message").toString();
+			if(StringUtils.isNotBlank(message)) {
+				testService.insertMessage(message);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
 			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
 		}
 		return response.getData();

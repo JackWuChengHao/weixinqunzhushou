@@ -5,6 +5,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -16,6 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.rs.wxmgr.entity.WelcomeMsg;
+import com.rs.wxmgr.service.TestService;
 import com.rs.wxmgr.wechat.common.WXContact;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
 import com.rs.wxmgr.wechat.utils.GroupUtils;
@@ -65,8 +68,11 @@ public class Robot implements Closeable {
 	
 	private Timer groupMemberAddTimer;
     private TimerTask groupMemberAddtask;
+    
+    private TestService testService;
 	
-	public Robot() {
+	public Robot(TestService testService) {
+		this.testService = testService;
 		client = new WXHttpClient();
 		contact = new WXContact();
 	}
@@ -197,8 +203,16 @@ public class Robot implements Closeable {
 		List<JSONObject> goupList = getGroupList();
 		List<String> usernameList = GroupUtils.getGroupListForUserAdd(this.contact.getGroupInfoList(), goupList);
 		this.contact.setGroupInfoList(goupList);
-		for(String username:usernameList) {
-			testSendMessage("测试", username);
+		List<WelcomeMsg> messageList = null;
+		if(usernameList.size()>0) {
+			messageList = testService.selectMessageList();
+			for(String username:usernameList) {
+				int index = new Random().nextInt(messageList.size());
+				if(index!=0&&index==usernameList.size()) index--;
+				String message = messageList.get(index).getMessage();
+				System.out.println(message);
+				testSendMessage(message, username);
+			}
 		}
 	}
 	

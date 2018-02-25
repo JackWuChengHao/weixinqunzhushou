@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WelcomeMsgMapper">
+
+	<resultMap id="WelcomeMsgMap" type="WelcomeMsg">
+		<id property="id" column="id"></id>
+		<result property="message" column="welcomeMsg"></result>
+	</resultMap>
+	
+	<select id="selectMessageList" parameterType="map" resultMap="WelcomeMsgMap">
+		select * from T_WelcomeMsg
+	</select>
+	
+	<insert id="insertMessage" parameterType="WelcomeMsg" >
+		insert into T_WelcomeMsg (WelcomeMsg) VALUES(#{message})
+	</insert>
+	
+</mapper>
