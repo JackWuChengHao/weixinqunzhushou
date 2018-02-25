@@ -176,7 +176,7 @@ public class LoginUtils {
 		}
     }
     
-    public static void init(WXHttpClient client)
+    public static boolean init(WXHttpClient client)
             throws Exception {
         
         String uuid = client.getUuid();
@@ -191,6 +191,7 @@ public class LoginUtils {
         CloseableHttpResponse resp = client.execute(post);
         try {
             String data = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
+            System.out.println(data);
             JSONObject dict = JSON.parseObject(data);
             client.setMyAccount(dict.getObject("User", Account.class));
             client.setSyncKey(dict.getObject("SyncKey", SyncKey.class));
@@ -199,6 +200,7 @@ public class LoginUtils {
                 
             	client.setStatus("inited");
                 System.out.println(uuid + " 初始化成功");
+                return true;
             } else {
             	client.setStatus("loginout");
                 System.out.println(uuid + " 初始化失败：\r\n" + data);
@@ -206,6 +208,7 @@ public class LoginUtils {
         } finally {
             resp.close();
         }
+        return false;
     }
     
 }

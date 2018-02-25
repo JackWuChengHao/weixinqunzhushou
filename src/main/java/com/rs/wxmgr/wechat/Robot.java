@@ -119,6 +119,7 @@ public class Robot implements Closeable {
 					try {
 						Robot.this.isOnline = SyncCheckUtils.check(client);
 						if(!Robot.this.isOnline) {
+							Robot.this.close();
 							break;
 						}
 						if(Robot.this.lastConectTime != null && 
@@ -141,7 +142,7 @@ public class Robot implements Closeable {
 	 */
 	private void init() throws Exception {
 		LoginUtils.redirect(client);
-		LoginUtils.init(client);
+		isOnline = LoginUtils.init(client);
 		keepOnline();
 	}
 	
@@ -183,9 +184,16 @@ public class Robot implements Closeable {
 	public void close() throws IOException {
 		try {
 			client.close();
+			threadPoolExecutor.shutdown();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			client = null;
 		}
+	}
+	
+	public boolean isClose() {
+		return client == null;
 	}
 	
 }

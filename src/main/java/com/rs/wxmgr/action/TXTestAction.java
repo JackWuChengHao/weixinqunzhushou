@@ -51,6 +51,9 @@ public class TXTestAction {
 	 */
 	@RequestMapping("/weqrpage")
     public String weqrPage(ModelMap map){
+		if(robot.isClose()) {
+			robot = new Robot();
+		}
         return "/qr";
     }
 	/**
@@ -64,7 +67,7 @@ public class TXTestAction {
     }
 	
 	@ResponseBody
-	@RequestMapping("getHistoryNcrInfoList")
+	@RequestMapping("/getHistoryNcrInfoList")
 	public JSONObject getHistoryNcrInfoList(@RequestBody HashMap<String,Object> data) {
 		TXResponse response = TXResponseFactory.CreateSuccess();
 		try {
@@ -151,12 +154,13 @@ public class TXTestAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/sendmessage")
-	public String testMessage(@RequestBody HashMap<String,Object> data){
-		String result = null;
+	public JSONObject testMessage(@RequestBody HashMap<String,Object> data){
+		TXResponse response = TXResponseFactory.CreateSuccess();
 		
 		try {
 			if(!robot.isOnline()) {
-				return result;
+				response = TXResponseFactory.CreateFail(10, "已下线");
+				return response.getData();
 			}
 			
 			String message = data.get("message").toString();
@@ -166,8 +170,9 @@ public class TXTestAction {
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
+			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
 		}
-		return result;
+		return response.getData();
 	}
 	
 }
