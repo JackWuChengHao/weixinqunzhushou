@@ -147,6 +147,25 @@ public class TXTestAction {
 		}
 		return response.getData();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getgroup")
+	public JSONObject getGroup(HttpServletRequest request){
+		TXResponse response = TXResponseFactory.CreateSuccess();
+
+		if(!robot.isOnline()) {
+			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
+			return response.getData();
+		}
+		
+		try {
+			response.put("data", robot.getGroupList());
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return response.getData();
+	}
+	
 	/**
 	 * 发送消息
 	 * @param data
@@ -166,7 +185,7 @@ public class TXTestAction {
 			String message = data.get("message").toString();
 			String username = data.get("username").toString();
 			if(StringUtils.isNotBlank(message) && StringUtils.isNotBlank(username)) {
-				System.out.println(robot.testSendMeasure(message,username));
+				System.out.println(robot.testSendMessage(message,username));
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);

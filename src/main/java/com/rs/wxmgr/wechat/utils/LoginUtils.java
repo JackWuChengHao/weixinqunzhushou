@@ -191,7 +191,6 @@ public class LoginUtils {
         CloseableHttpResponse resp = client.execute(post);
         try {
             String data = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
-            System.out.println(data);
             JSONObject dict = JSON.parseObject(data);
             client.setMyAccount(dict.getObject("User", Account.class));
             client.setSyncKey(dict.getObject("SyncKey", SyncKey.class));
@@ -203,7 +202,7 @@ public class LoginUtils {
                 return true;
             } else {
             	client.setStatus("loginout");
-                System.out.println(uuid + " 初始化失败：\r\n" + data);
+                System.out.println(uuid + " 初始化失败:" + data);
             }
         } finally {
             resp.close();

@@ -32,8 +32,17 @@ public class WXContact implements Serializable {
     public void setMemberList(List<JSONObject> memberList) {
         this.memberList = memberList;
     }
-    
     /**
+     * 通过批量获取的组群详细信息
+     */
+    private List<JSONObject> groupInfoList;
+    public List<JSONObject> getGroupInfoList() {
+		return groupInfoList;
+	}
+	public void setGroupInfoList(List<JSONObject> groupInfoList) {
+		this.groupInfoList = groupInfoList;
+	}
+	/**
      * 公众号
      * @return
      */
