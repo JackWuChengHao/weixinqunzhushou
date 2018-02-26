@@ -18,7 +18,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="close_add_normal_msg" data-dismiss="modal">取消</button>
-        <button type="button" id="add_normal_msg" class="btn btn-primary">发送</button>
+        <button type="button" id="add_normal_msg" class="btn btn-primary" data-dismiss="modal">发送</button>
       </div>
     </div>
   </div>

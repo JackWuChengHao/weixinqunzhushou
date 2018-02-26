@@ -4,7 +4,6 @@ $(document).ready(function(){
 
 function bindSendGroupMessageBtn(){
 	$("#add_normal_msg").on("click",function(){
-		alert("asdasd");
 		var message = $("#normal_message_text").val();
 		if(message==null || message ===""){
 			return;

@@ -18,8 +18,7 @@ normalGroupList.ajaxCallback = function(data){
 			index: i+1, 
 			name : data["rows"][i]["NickName"],
 			memberCount : data["rows"][i]["MemberCount"],
-			data: data["rows"][i],
-			groupname : data["rows"]["UserName"]
+			data: data["rows"][i]
 		});
 	}
 };
@@ -29,4 +28,6 @@ normalGroupList.ajaxFailCallback = function(){
 normalGroupList.clearQueryComp = function(){
 };
 normalGroupList.render();
+
+
 

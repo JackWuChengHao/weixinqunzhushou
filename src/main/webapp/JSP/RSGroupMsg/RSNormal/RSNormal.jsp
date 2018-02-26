@@ -21,7 +21,7 @@
 					</div>
 					<div class="form-group">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNormalModal">
-							<span class="glyphicon glyphicon-plus"></span>
+							<span class="glyphicon glyphicon-plus"></span>消息发送
 						</button>
 					</div>
 					<hr />

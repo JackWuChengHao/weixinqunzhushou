@@ -33,9 +33,5 @@
 	<jsp:include page="/commPages/commJS.jsp" flush="true"></jsp:include>
 </body>
  
-<script type="text/javascript"
-	src="/webapp/Business/RSTimedReminder/list.js"></script>
-<script type="text/javascript"
-	src="/webapp/Business/RSTimedReminder/init.js"></script>
 	
 </html>

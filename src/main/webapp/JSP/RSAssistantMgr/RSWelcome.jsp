@@ -29,6 +29,7 @@
 					</div>
 					<hr/>
 					<div id="WelcomeList"></div>
+					<br/>
 				</div>
 			</div>
 		</div>

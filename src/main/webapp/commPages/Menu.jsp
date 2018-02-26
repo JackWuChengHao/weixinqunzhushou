@@ -2,8 +2,8 @@
 
 <div class="sidebar" id="sidebar" style="font-family:'华文细黑';">
 	<ul class="nav nav-list">
-	
 		<li><a href="/wechatass/index.html"> 
+<!-- 		<li><a href="/wechatass/JSP/RSInfoJudge/RSInfoJudge.jsp">  -->
 			<span class="glyphicon glyphicon-home"></span> 
 			<span class="menu-text">首页</span>
 		</a></li>
@@ -33,10 +33,10 @@
 			<span class="menu-text">定时群发</span>
 		</a></li>
 		
-		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSBatchOperate.jsp" class="dropdown-toggle">
-			<span class="glyphicon glyphicon-th"></span> 
-			<span class="menu-text">批量操作</span>
-		</a></li>
+<!-- 		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSBatchOperate.jsp" class="dropdown-toggle"> -->
+<!-- 			<span class="glyphicon glyphicon-th"></span>  -->
+<!-- 			<span class="menu-text">批量操作</span> -->
+<!-- 		</a></li> -->
 		
 		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSGroupMsgs.jsp" class="dropdown-toggle">
 			<span class="glyphicon glyphicon-list-alt"></span> 
@@ -53,7 +53,7 @@
 			<span class="glyphicon glyphicon-stats"></span> 
 			<span class="menu-text">数据统计</span>
 		</a></li>
-
+		
 	</ul>
 	
 	<div class="sidebar-collapse" id="sidebar-collapse">

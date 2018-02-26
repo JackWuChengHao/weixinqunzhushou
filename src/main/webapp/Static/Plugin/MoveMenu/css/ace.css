@@ -88,7 +88,7 @@ body.breadcrumbs-fixed {
 
 .navbar .navbar-nav>li>a,.navbar .navbar-nav>li>a:hover,.navbar .navbar-nav>li>a:focus
 	{
-	font-size: 13px;
+	font-size: 20px;
 	text-shadow: none;
 	color: #fff
 }
@@ -281,13 +281,13 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 
 .nav-list>li>a {
 	display: block;
-	height: 38px;
-	line-height: 36px;
+	height: 50px;
+	line-height: 50px;
 	padding: 0 16px 0 7px;
 	background-color: rgba(0,0,0,0);
 	color: #223a5e;
 	text-shadow: none !important;
-	font-size: 13px;
+	font-size: 18px;
 	text-decoration: none
 }
 
