@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -56,18 +54,18 @@ public class Robot implements Closeable {
 	 * 心跳包间隔最短时长
 	 */
 	private static final long SYNC_CHECK_INTERVAL = 1000L;
-	/**
-	 * 检测组群成员增加的间隔
-	 */
-	private static final long GROUP_MEMBER_ADD_INTERVAL = 2000L;
+//	/**
+//	 * 检测组群成员增加的间隔
+//	 */
+//	private static final long GROUP_MEMBER_ADD_INTERVAL = 2000L;
 	/**
 	 * 线程池
 	 */
 	private ThreadPoolExecutor threadPoolExecutor = 
 			new ThreadPoolExecutor(1, 10, 1, TimeUnit.MINUTES,new LinkedBlockingQueue<Runnable>());
 	
-	private Timer groupMemberAddTimer;
-    private TimerTask groupMemberAddtask;
+//	private Timer groupMemberAddTimer;
+//    private TimerTask groupMemberAddtask;
     
     private TestService testService;
 	
@@ -138,10 +136,16 @@ public class Robot implements Closeable {
 			public void run() {
 				while(true) {
 					try {
-						Robot.this.isOnline = SyncCheckUtils.check(client);
-						if(!Robot.this.isOnline) {
+						int result = SyncCheckUtils.check(client);
+						if(result == -1) {
+							// 掉线
 							Robot.this.offLine();
 							break;
+						} else if(result != 0) {
+							// 刷新联系人列表
+							getContact();
+							// 向有新人的组群发送消息
+							sendGroupMessageForUserAdd();
 						}
 						if(Robot.this.lastConectTime != null && 
 							System.currentTimeMillis()-Robot.this.lastConectTime<SYNC_CHECK_INTERVAL ) {
@@ -172,7 +176,7 @@ public class Robot implements Closeable {
 	}
 	
 	/**
-	 * 获取联系人列表
+	 * 刷新并获取联系人列表
 	 * @return
 	 * @throws Exception
 	 */
@@ -199,6 +203,10 @@ public class Robot implements Closeable {
 		return MessageUtils.sendMessageByUsername(client, username, message);
 	}
 	
+	/**
+	 * 向有新人的组群发送消息
+	 * @throws Exception
+	 */
 	private void sendGroupMessageForUserAdd() throws Exception{
 		List<JSONObject> goupList = getGroupList();
 		List<String> usernameList = GroupUtils.getGroupListForUserAdd(this.contact.getGroupInfoList(), goupList);
@@ -226,27 +234,26 @@ public class Robot implements Closeable {
 				.getJSONArray("ContactList").toJSONString(),JSONObject.class);
 	}
 	
-	private void startGroupMemberAddCheck() {
-		groupMemberAddTimer = new Timer();
-	    groupMemberAddtask = new TimerTask() {
-			@Override
-			public void run() {
-				try {
-					getContact();
-					sendGroupMessageForUserAdd();
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-				}
-			}
-		};
-		groupMemberAddTimer.schedule(groupMemberAddtask, 0, GROUP_MEMBER_ADD_INTERVAL);
-	}
-	private void stopGroupMemberAddCheck() {
-		groupMemberAddtask.cancel();
-		groupMemberAddTimer.purge();
-		groupMemberAddTimer.cancel();
-		groupMemberAddtask=null;
-	}
+//	private void startGroupMemberAddCheck() {
+//		groupMemberAddTimer = new Timer();
+//	    groupMemberAddtask = new TimerTask() {
+//			@Override
+//			public void run() {
+//				try {
+//					sendGroupMessageForUserAdd();
+//				} catch (Exception e) {
+//					logger.error(e.getMessage(), e);
+//				}
+//			}
+//		};
+//		groupMemberAddTimer.schedule(groupMemberAddtask, 0, GROUP_MEMBER_ADD_INTERVAL);
+//	}
+//	private void stopGroupMemberAddCheck() {
+//		groupMemberAddtask.cancel();
+//		groupMemberAddTimer.purge();
+//		groupMemberAddTimer.cancel();
+//		groupMemberAddtask=null;
+//	}
 	
 	/**
 	 * 是否在线
@@ -261,7 +268,8 @@ public class Robot implements Closeable {
 	 */
 	private void upLine() {
 		try {
-			startGroupMemberAddCheck();
+			getContact();
+//			startGroupMemberAddCheck();
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}
@@ -271,7 +279,7 @@ public class Robot implements Closeable {
 	 */
 	private void offLine() {
 		try {
-			stopGroupMemberAddCheck();
+//			stopGroupMemberAddCheck();
 			close();
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);

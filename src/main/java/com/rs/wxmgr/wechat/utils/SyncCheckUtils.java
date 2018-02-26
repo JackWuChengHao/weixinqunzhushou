@@ -29,11 +29,13 @@ public class SyncCheckUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SyncCheckUtils.class);
 	/**
 	 * 心跳包
+	 * -1:掉线,0:正常,且没有消息,2:有新消息,3:未知,
+	 * 4:通讯录更新,6:可能是红包,7:手机上操作了微信
 	 * @param client
 	 * @return 是否在线
 	 * @throws Exception
 	 */
-    public static boolean check(WXHttpClient client)
+    public static int check(WXHttpClient client)
             throws Exception {
 
         String uuid = client.getUuid();
@@ -42,7 +44,7 @@ public class SyncCheckUtils {
             if(StringUtils.isEmpty(client.getSyncHost()))
                 testSyncCheck(client);
             // 获取不到同步服务器时出退出
-            if(StringUtils.isEmpty(client.getSyncHost())) return false;
+            if(StringUtils.isEmpty(client.getSyncHost())) return -1;
             
             client.setStatus("success");
             URI uri = new URIBuilder("https://" + client.getSyncHost() + "/cgi-bin/mmwebwx-bin/synccheck")
@@ -64,49 +66,45 @@ public class SyncCheckUtils {
                 String selector = matcher.group(2);
                 logger.info(uuid + " sync_check: " + retcode + "，" + selector);
                 
-                if("1100".equals(retcode)) { // 从微信客户端上登出
-                	client.setStatus("loginout");
-                	System.out.println(uuid + " 退出 " + 1100);
-                	return false;
-                } else if("1101".equals(retcode)){ // 从其它设备上登录了网页微信
-                	client.setStatus("loginout");
-                	System.out.println(uuid + " 退出 " + 1101);
-                	return false;
-                } else if("1102".equals(retcode)) { // 不知道啥问题，反正就是退出登录了
-                	client.setStatus("loginout");
-                	System.out.println(uuid + " 退出 " + 1102);
-                	return false;
-                } else if("0".equals(retcode)) {
-                    if(!"0".equals(selector)) {
-                        JSONObject dict = sync(client);
-                        if(dict != null) {
-                        	System.out.println(dict);
-                            if("2".equals(selector)) { // 有新消息 
-//                                WXUtils.submit(new HandleMsgEvent(uuid, dict));
-                            } else if("3".equals(selector)) { // 未知
-//                                WXUtils.submit(new HandleMsgEvent(uuid, dict));
-                            } else if("4".equals(selector)) { // 通讯录更新
-//                                WXUtils.submit(new GetContactEvent(uuid));
-                            } else if("6".equals(selector)) { // 可能是红包
-//                                WXUtils.submit(new HandleMsgEvent(uuid, dict));
-                            } else if("7".equals(selector)) { // 手机上操作了微信 
-//                                WXUtils.submit(new HandleMsgEvent(uuid, dict));
-                            } else {
-//                                WXUtils.submit(new HandleMsgEvent(uuid, dict));
-                            }
-                        }
-                    }
+                if(!"0".equals(retcode)) {
+                	/*
+                	 * 1100 从微信客户端上登出
+                	 * 1101 从其它设备上登录了网页微信
+                	 * 1102 不知道啥问题，反正就是退出登录了
+                	 */
+                	return -1;
+                } else {
+                	/*
+                	 * 0 正常,且没有消息
+            		 * 2 有新消息
+            		 * 3 未知
+            		 * 4 通讯录更新
+            		 * 6 可能是红包
+            		 * 7 手机上操作了微信
+                	 */
+                	int selectorVal = Integer.parseInt(selector);
+                	if(selectorVal!=0) {
+                		JSONObject dict = sync(client);
+                		System.out.println(dict);
+                	}
+                	return selectorVal;
                 }
+                
             }
         } catch(Exception ex) {
         	ex.printStackTrace();
-        	return false;
+        	return -1;
         } finally {
             if(resp != null) resp.close();
         }
-        return true;
+        return 0;
     }
 
+    /**
+     * 获取消息服务器地址
+     * @param client
+     * @throws Exception
+     */
     private static void testSyncCheck(WXHttpClient client) throws Exception {
         
         String uuid = client.getUuid();
@@ -142,6 +140,12 @@ public class SyncCheckUtils {
         }
     }
 
+    /**
+     * 获取消息
+     * @param client
+     * @return
+     * @throws Exception
+     */
     private static JSONObject sync(WXHttpClient client) throws Exception {
         
         URI uri = new URIBuilder(client.getBaseUri() + "/webwxsync")
