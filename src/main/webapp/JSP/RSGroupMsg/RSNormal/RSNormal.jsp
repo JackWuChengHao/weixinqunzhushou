@@ -8,6 +8,7 @@
 <title>普通群发</title>
 </head>
 <body>
+	<jsp:include page="./addNormalModel.jsp" flush="true"></jsp:include>
 	<jsp:include page="/commPages/Navbar.jsp" flush="true"></jsp:include>
 	<div class="main-container" id="main-container">
 		<div class="main-container-inner">
@@ -17,7 +18,7 @@
 					<br />
 					<div class="form-inline">
 						<h4>普通群发</h4>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTimeReminderModel">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNormalModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>

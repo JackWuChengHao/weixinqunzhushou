@@ -11,3 +11,4 @@
 	<script type="text/javascript" src="/wechatass/Static/Plugin/fileinput/js/fileinput.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Plugin/sweetalert/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Plugin/webui-popover/js/jquery.webui-popover.js"></script>
+	<script type="text/javascript" src="/wechatass/Business/common/common.js"></script>

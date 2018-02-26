@@ -5,7 +5,7 @@ $(document).ready(function(){
 var normalGroupList = new TableView('NormalGroupList');
 normalGroupList.url = '/wechatass/getgroup';
 normalGroupList.initHeader([
-	{id:'marker',name:'',width:2,align:'center',type:'checkbox'},
+	{id:'marker',name:'',width:2,align:'center',type:'radio'},
 	{id:'index',name:'序号',width:10,align:'center',key:true},
 	{id:'name',name:'组群名',width:70,align:'center'},
 	{id:'memberCount',name:'人数',width:18,align:'center'}
