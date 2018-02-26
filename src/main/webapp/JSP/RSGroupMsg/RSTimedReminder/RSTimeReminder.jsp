@@ -15,15 +15,15 @@
 			<div class="main-content">
 				<div class="container">
 					<br />
-					<div class="form-inline">
-						<h4>定时提醒</h4>
+					<div class="form-group">
+						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>定时提醒</span> 
+					</div>
+					<div class="form-group">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTimeReminderModel">
-							<span class="glyphicon glyphicon-plus"></span> 添加定时提醒
+							<span class="glyphicon glyphicon-plus"></span> 新建定时提醒
 						</button>
 					</div>
-					<br />
-					<br />
-					<br />
+					<hr />
 					<div id="TimedReminderList"></div>
 				</div>
 			</div>

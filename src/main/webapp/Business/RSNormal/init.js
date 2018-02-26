@@ -4,17 +4,20 @@ $(document).ready(function(){
 
 function bindSendGroupMessageBtn(){
 	$("#add_normal_msg").on("click",function(){
+		alert("asdasd");
 		var message = $("#normal_message_text").val();
 		if(message==null || message ===""){
 			return;
 		}
 	
 		var selectedList = normalGroupList.getSelected();
-		if(selectedList.length !== 1){
+		if(selectedList.length < 1){
 			return;
 		}
-		var username = selectedList[0]["data"]["UserName"];
-		
-		sendAjax("/wechatass/sendmessage",{"message":message,"username":username});
+		var groupnamelist = [];
+		for(var i = 0 ; i < selectedList.length;i++){
+			groupnamelist.push(selectedList[i]["data"]["UserName"]);
+		}
+		sendAjax("/wechatass/sendmessagetoGroup",{"message":message,"groupnamelist":groupnamelist});
 	});
 }

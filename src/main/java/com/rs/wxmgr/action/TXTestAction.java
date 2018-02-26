@@ -37,7 +37,7 @@ public class TXTestAction {
 	private Robot robot;
 
 //	/**
-//	 * 扫码页面
+//	 * 鎵爜椤甸潰
 //	 * @param map
 //	 * @return
 //	 */
@@ -49,7 +49,7 @@ public class TXTestAction {
 //        return "/qr";
 //    }
 //	/**
-//	 * 微信登录成功页面
+//	 * 寰俊鐧诲綍鎴愬姛椤甸潰
 //	 * @param map
 //	 * @return
 //	 */
@@ -92,7 +92,7 @@ public class TXTestAction {
 	}
 	
 	/**
-	 * 登录二维码
+	 * 鐧诲綍浜岀淮鐮�
 	 * @param request
 	 * @param response
 	 */
@@ -110,7 +110,7 @@ public class TXTestAction {
 	}
 	
 	/**
-	 * 检查微信机器人是否在线
+	 * 妫�鏌ュ井淇℃満鍣ㄤ汉鏄惁鍦ㄧ嚎
 	 * @param request
 	 * @return
 	 */
@@ -131,7 +131,7 @@ public class TXTestAction {
 	}
 	
 	/**
-	 * 测试获取好友列表
+	 * 娴嬭瘯鑾峰彇濂藉弸鍒楄〃
 	 * @param request
 	 */
 	@ResponseBody
@@ -160,6 +160,39 @@ public class TXTestAction {
 		return response.getData();
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/sendmessagetoGroup")
+	public JSONObject sendmessagetoGroup(HttpServletRequest request,@RequestBody HashMap<String,Object> data){
+		System.out.println("entertenerwerwer");
+		
+		TXResponse response = TXResponseFactory.CreateSuccess();
+
+		if(!robot.isOnline()) {
+			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
+			return response.getData();
+		}
+		
+		try {
+			
+			String message = data.get("message").toString();
+			System.out.println("messagemessagemessage"+message);
+			List<String> groupNameList = (List<String>)data.get("groupnamelist");
+			for(int i=0;i<groupNameList.size();i++ ) {
+				if(StringUtils.isNotBlank(message) && StringUtils.isNotBlank(groupNameList.get(i)))
+					System.out.println("groupNameList.get(i)"+groupNameList.get(i));
+					System.out.println(robot.testSendMessage(message,groupNameList.get(i)));
+			}
+		
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return response.getData();
+	}
+
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/getgroup")
 	public JSONObject getGroup(HttpServletRequest request){
@@ -179,7 +212,7 @@ public class TXTestAction {
 	}
 	
 	/**
-	 * 发送消息
+	 * 鍙戦�佹秷鎭�
 	 * @param data
 	 * @return
 	 */
@@ -190,7 +223,7 @@ public class TXTestAction {
 		
 		try {
 			if(!robot.isOnline()) {
-				response = TXResponseFactory.CreateFail(10, "已下线");
+				response = TXResponseFactory.CreateFail(10, "宸蹭笅绾�");
 				return response.getData();
 			}
 			
