@@ -10,11 +10,13 @@ function bindSendGroupMessageBtn(){
 		}
 	
 		var selectedList = normalGroupList.getSelected();
-		if(selectedList.length !== 1){
+		if(selectedList.length < 1){
 			return;
 		}
-		var username = selectedList[0]["data"]["UserName"];
-		
-		sendAjax("/wechatass/sendmessage",{"message":message,"username":username});
+		var groupnamelist = [];
+		for(var i = 0 ; i < selectedList.length;i++){
+			groupnamelist.push(selectedList[i]["data"]["username"]);
+		}
+		sendAjax("/wechatass/sendmessagetoGroup",{"message":message,"groupnamelist":groupnamelist});
 	});
 }

@@ -83,17 +83,12 @@ public class SyncCheckUtils {
             		 * 7 手机上操作了微信
                 	 */
                 	int selectorVal = Integer.parseInt(selector);
-                	if(selectorVal!=0) {
-                		JSONObject dict = sync(client);
-                		System.out.println(dict);
-                	}
                 	return selectorVal;
                 }
                 
             }
-        } catch(Exception ex) {
-        	ex.printStackTrace();
-        	return -1;
+        } catch(Exception e) {
+        	throw e;
         } finally {
             if(resp != null) resp.close();
         }
@@ -146,7 +141,7 @@ public class SyncCheckUtils {
      * @return
      * @throws Exception
      */
-    private static JSONObject sync(WXHttpClient client) throws Exception {
+    public static JSONObject syncMessage(WXHttpClient client) throws Exception {
         
         URI uri = new URIBuilder(client.getBaseUri() + "/webwxsync")
                 .addParameter("sid", client.getBaseRequest().getSid())

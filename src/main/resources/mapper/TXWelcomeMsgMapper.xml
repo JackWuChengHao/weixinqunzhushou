@@ -7,11 +7,13 @@
 		<result property="message" column="welcomeMsg"></result>
 	</resultMap>
 	
+	<cache />
+	
 	<select id="selectMessageList" parameterType="map" resultMap="WelcomeMsgMap">
 		select * from T_WelcomeMsg
 	</select>
 	
-	<insert id="insertMessage" parameterType="WelcomeMsg" >
+	<insert id="insertMessage" parameterType="WelcomeMsg" flushCache="true" >
 		insert into T_WelcomeMsg (WelcomeMsg) VALUES(#{message})
 	</insert>
 	

@@ -10,6 +10,7 @@ function checkLoginStatus(){
 	var result = sendAjax("/wechatass/checklogin");
 	// 登录成功
 	if(result["data"]==true){
-		window.location.href="/wechatass/JSP/index.jsp";
+		window.location.href="/wechatass/JSP/login.jsp";
+		//alert("桃娃助手1号已经上线");
 	}
 }

@@ -18,11 +18,14 @@
 						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>我的助手</span> 
 					</div>
 					<hr/>
+					<div id="MyAssistantsList"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="/commPages/Foot.jsp" flush="true"></jsp:include>
 	<jsp:include page="/commPages/commJS.jsp" flush="true"></jsp:include>
+	<script type="text/javascript"
+	src="/wechatass/Business/MyAssistants/list.js"></script>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.rs.wxmgr.entity;
 
-public class WelcomeMsg {
+import java.io.Serializable;
 
+public class WelcomeMsg implements Serializable{
+
+	private static final long serialVersionUID = -7933572995048408702L;
 	private Integer id;
 	private String message;
 	public Integer getId() {

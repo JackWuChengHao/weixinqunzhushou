@@ -32,6 +32,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.rs.wxmgr.wechat.common.WXContact;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
 import com.rs.wxmgr.wechat.entity.Account;
 import com.rs.wxmgr.wechat.entity.SyncKey;
@@ -176,7 +177,7 @@ public class LoginUtils {
 		}
     }
     
-    public static boolean init(WXHttpClient client)
+    public static boolean init(WXHttpClient client,WXContact contact)
             throws Exception {
         
         String uuid = client.getUuid();
@@ -195,8 +196,20 @@ public class LoginUtils {
             client.setMyAccount(dict.getObject("User", Account.class));
             client.setSyncKey(dict.getObject("SyncKey", SyncKey.class));
             
+
+            contact.initPut(dict.getJSONArray("ContactList"));
+            // 临时群(未保存到通讯录的群,只有username,没有详细信息)
+            String chatSet = dict.getString("ChatSet");
+            if(chatSet!=null) {
+            	String[] usernameSet = chatSet.split(",");
+            	for(String username:usernameSet) {
+            		if(username.startsWith("@@")) {
+            			contact.addGroupSet(username);
+            		}
+            	}
+            }
+            
             if(dict.getJSONObject("BaseResponse").getIntValue("Ret") == 0) {
-                
             	client.setStatus("inited");
                 System.out.println(uuid + " 初始化成功");
                 return true;

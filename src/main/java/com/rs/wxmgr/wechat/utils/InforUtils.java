@@ -3,8 +3,10 @@ package com.rs.wxmgr.wechat.utils;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,10 +18,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
+import com.rs.wxmgr.wechat.entity.Group;
 
 public class InforUtils {
 
-    public static List<JSONObject> getMemberist(WXHttpClient client) throws Exception {
+    public static List<JSONObject> getMemberList(WXHttpClient client) throws Exception {
         
         List<JSONObject> result = new ArrayList<JSONObject>();
         String uuid = client.getUuid();
@@ -61,7 +64,7 @@ public class InforUtils {
      * @return
      * @throws Exception
      */
-    public static JSONObject getBatchContact(WXHttpClient client,List<String> usernameList) throws Exception {
+    public static JSONObject getBatchContact(WXHttpClient client,Set<String> usernameList) throws Exception {
         
         JSONObject result = new JSONObject();
         URI uri = new URIBuilder(client.getBaseUri() + "/webwxbatchgetcontact")
@@ -85,7 +88,7 @@ public class InforUtils {
         }
         return result;
     }
-    private static JSONArray extractGroupInfoList(List<String> usernameList) {
+    private static JSONArray extractGroupInfoList(Set<String> usernameList) {
         
         JSONArray list = new JSONArray();
         for(String username : usernameList) {
@@ -95,5 +98,16 @@ public class InforUtils {
             list.add(ele);
         }
         return list;
+    }
+    
+    public static Group getGroupContact(WXHttpClient client,String username) throws Exception {
+    	Set<String> set = new HashSet<String>();
+    	set.add(username);
+    	JSONObject batchContact = getBatchContact(client, set);
+    	List<JSONObject> list = JSONArray.parseArray(batchContact.getString("ContactList"), JSONObject.class);
+    	if(list.size() ==0) {
+    		return null;
+    	}
+    	return Group.parse(list.get(0));
     }
 }

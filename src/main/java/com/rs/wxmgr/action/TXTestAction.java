@@ -1,6 +1,5 @@
 package com.rs.wxmgr.action;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,28 +35,6 @@ public class TXTestAction {
 	
 	private Robot robot;
 
-//	/**
-//	 * 扫码页面
-//	 * @param map
-//	 * @return
-//	 */
-//	@RequestMapping("/weqrpage")
-//    public String weqrPage(ModelMap map){
-//		if(robot==null || robot.isClose()) {
-//			robot = new Robot(testService);
-//		}
-//        return "/qr";
-//    }
-//	/**
-//	 * 微信登录成功页面
-//	 * @param map
-//	 * @return
-//	 */
-//	@RequestMapping("/info")
-//    public String infoPage(ModelMap map){
-//        return "/info";
-//    }
-	
 	@ResponseBody
 	@RequestMapping("/getWelcomeMsgList")
 	public JSONObject getHistoryNcrInfoList(HttpServletRequest request) {
@@ -144,15 +121,13 @@ public class TXTestAction {
 			return response.getData();
 		}
 		
-		List<JSONObject> memberList = new ArrayList<JSONObject>();
 		try {
 			String type = request.getParameter("type");
 			if("group".equals(type)){
-				memberList = robot.getContact().getGroupList();
+				response.put("rows", robot.getContact().getGroupList());
 			} else if("normal".equals(type)) {
-				memberList = robot.getContact().getMemberList();
+				response.put("rows", robot.getContact().getMemberList());
 			}
-			response.put("rows", memberList);
 			response.put("totalpage",1);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -160,6 +135,33 @@ public class TXTestAction {
 		return response.getData();
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/sendmessagetoGroup")
+	public JSONObject sendmessagetoGroup(HttpServletRequest request,@RequestBody HashMap<String,Object> data){
+		TXResponse response = TXResponseFactory.CreateSuccess();
+
+		if(!robot.isOnline()) {
+			response = TXResponseFactory.CreateFail(TXErrorCode.SYSTEMRROR);
+			return response.getData();
+		}
+		
+		try {
+			
+			String message = data.get("message").toString();
+			@SuppressWarnings("unchecked")
+			List<String> groupNameList = (List<String>)data.get("groupnamelist");
+			for(int i=0;i<groupNameList.size();i++ ) {
+				if(StringUtils.isNotBlank(message) && StringUtils.isNotBlank(groupNameList.get(i)))
+					robot.sendMessage(message,groupNameList.get(i));
+			}
+		
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return response.getData();
+	}
+
 	@ResponseBody
 	@RequestMapping(value="/getgroup")
 	public JSONObject getGroup(HttpServletRequest request){
@@ -171,7 +173,7 @@ public class TXTestAction {
 		}
 		
 		try {
-			response.put("rows", robot.getGroupList());
+			response.put("rows", robot.getContact().getGroupList());
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}
@@ -197,7 +199,7 @@ public class TXTestAction {
 			String message = data.get("message").toString();
 			String username = data.get("username").toString();
 			if(StringUtils.isNotBlank(message) && StringUtils.isNotBlank(username)) {
-				System.out.println(robot.testSendMessage(message,username));
+				System.out.println(robot.sendMessage(message,username));
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
