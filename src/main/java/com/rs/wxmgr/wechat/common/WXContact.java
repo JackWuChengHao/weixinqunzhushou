@@ -51,12 +51,16 @@ public class WXContact implements Serializable {
 	}
 	public void putGroup(Group group) {
 		if(group!=null && group.getMemnerList()!= null &&
-				group.getMemnerList().size() == 0) {
-			groupSet.remove(group.getUsername());
-			groupMap.remove(group.getUsername());
-		} else {
+				group.getMemnerList().size() > 0) {
 			groupSet.add(group.getUsername());
 			groupMap.put(group.getUsername(), group);
+			
+			for(Member member : group.getMemnerList()) {
+				putMember(member);
+			}
+		} else {
+			groupSet.remove(group.getUsername());
+			groupMap.remove(group.getUsername());
 		}
 	}
 	

@@ -7,9 +7,11 @@ import org.apache.commons.lang.StringUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rs.wxmgr.wechat.common.WXContact;
+import com.rs.wxmgr.wechat.common.WXHttpClient;
 import com.rs.wxmgr.wechat.entity.Group;
 import com.rs.wxmgr.wechat.entity.Member;
 import com.rs.wxmgr.wechat.listener.SyncCheckListener;
+import com.rs.wxmgr.wechat.utils.MessageUtils;
 
 /**
  * 新消息监听器
@@ -19,8 +21,10 @@ import com.rs.wxmgr.wechat.listener.SyncCheckListener;
 public class NewMessageListener implements SyncCheckListener{
 
 	private WXContact contact;
-	public NewMessageListener(WXContact contact) {
+	private WXHttpClient client;
+	public NewMessageListener(WXHttpClient client,WXContact contact) {
 		this.contact = contact;
+		this.client = client;
 	}
 
 	public void handle(JSONObject json) {
@@ -55,6 +59,13 @@ public class NewMessageListener implements SyncCheckListener{
 					for(Member sayMember : group.getMemnerList()) {
 						if(sayMember.getUsername().equals(sayUsername)) {
 							System.out.println(String.format("%s的群消息, %s : %s", group.getNickname(),sayMember.getNickname(),sayContent));
+							if(sayContent.startsWith("@"+client.getMyAccount().getNickName())) {
+								try {
+									MessageUtils.sendMessageByUsername(client, group.getUsername(), "@我干嘛");
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
 						}
 					}
 				} else if (fromUsername.startsWith("@")) {

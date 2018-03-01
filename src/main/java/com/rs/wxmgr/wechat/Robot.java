@@ -5,20 +5,15 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.rs.wxmgr.entity.WelcomeMsg;
 import com.rs.wxmgr.service.TestService;
 import com.rs.wxmgr.wechat.common.WXContact;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
@@ -87,7 +82,7 @@ public class Robot implements Closeable {
 	}
 	
 	private void initListener() {
-		listenerList.add(new NewMessageListener(contact));
+		listenerList.add(new NewMessageListener(client,contact));
 		listenerList.add(new GroupMemberChangeListener(client, contact,testService));
 	}
 	
