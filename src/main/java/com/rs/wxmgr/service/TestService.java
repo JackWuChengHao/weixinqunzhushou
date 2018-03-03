@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rs.wxmgr.dao.TestDao;
+import com.rs.wxmgr.dao.WelcomeMsgDao;
 import com.rs.wxmgr.entity.WelcomeMsg;
 
 @Service
@@ -14,7 +14,7 @@ import com.rs.wxmgr.entity.WelcomeMsg;
 public class TestService {
 
 	@Autowired
-	private TestDao testDao;
+	private WelcomeMsgDao testDao;
 	
 	public List<WelcomeMsg> selectMessageList() {
 		return testDao.selectMessageList();

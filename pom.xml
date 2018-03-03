@@ -161,6 +161,15 @@
 			<version>4.5.3</version>
 		</dependency>
 
+		<!-- solr -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>6.6.1</version>
+		</dependency>
+
+
+
 		<!-- 杂项 -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -182,6 +191,7 @@
 			<artifactId>javase</artifactId>
 			<version>3.3.0</version>
 		</dependency>
+
 
 		<!-- 反射依赖 -->
 		<dependency>

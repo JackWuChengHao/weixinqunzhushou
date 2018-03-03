@@ -10,22 +10,11 @@
 		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-	<context:component-scan base-package="com.rs.wxmgr"></context:component-scan>
-	
-	<!-- properties配置文件导入 -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<array>
-				<value>classpath:database.properties</value>
-			</array>
-		</property>
+	<!--定义solr的client -->
+	<bean id="httpSolrClient" class="org.apache.solr.client.solrj.impl.HttpSolrClient">
+		<constructor-arg index="0" value="http://47.94.217.44:8983/solr/wechatass" />
+		<!-- 建立连接的最长时间 -->
+		<property name="connectionTimeout" value="500" />
 	</bean>
 
-	<!-- 数据库配置 -->
-	<import resource="classpath:spring-database.xml"/>
-	<!-- solr配置 -->
-	<import resource="classpath:spring-solr.xml"/>
-	<!--定时任务配置 -->
-<!-- 	<import resource="classpath:spring-quartz.xml"/> -->
-	
 </beans>

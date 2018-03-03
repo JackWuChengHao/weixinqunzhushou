@@ -36,6 +36,14 @@ public class Group {
 	public void setMemnerList(List<Member> memnerList) {
 		this.memnerList = memnerList;
 	}
+	public Member getMember(String username) {
+		for(Member sayMember : memnerList) {
+			if(sayMember.getUsername().equals(username)) {
+				return sayMember;
+			}
+		}
+		return null;
+	}
 	@Override
 	public String toString() {
 		return "Group [username=" + username + ", nickname=" + nickname + ", owner=" + owner + ", memnerList="

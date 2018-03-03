@@ -23,6 +23,7 @@ import com.rs.wxmgr.common.content.TXErrorCode;
 import com.rs.wxmgr.common.exception.TXException;
 import com.rs.wxmgr.entity.WelcomeMsg;
 import com.rs.wxmgr.service.TestService;
+import com.rs.wxmgr.service.WXRobotFactory;
 import com.rs.wxmgr.wechat.Robot;
 
 @Controller
@@ -32,12 +33,14 @@ public class TXTestAction {
 	
 	@Autowired
 	private TestService testService;
+	@Autowired
+	private WXRobotFactory robotFactory;
 	
 	private Robot robot;
 
 	@ResponseBody
 	@RequestMapping("/getWelcomeMsgList")
-	public JSONObject getHistoryNcrInfoList(HttpServletRequest request) {
+	public JSONObject getWelcomeMsgList(HttpServletRequest request) {
 		TXResponse response = TXResponseFactory.CreateSuccess();
 		try {
 			List<WelcomeMsg> messageList = testService.selectMessageList();
@@ -77,7 +80,7 @@ public class TXTestAction {
 	public void wechatlogin(HttpServletRequest request, HttpServletResponse response){
 		try {
 			if(robot==null || robot.isClose()) {
-				robot = new Robot(testService);
+				robot = robotFactory.createRobot();
 			}
 			response.getOutputStream().write(robot.getRQCode());
 			robot.checkLogin();

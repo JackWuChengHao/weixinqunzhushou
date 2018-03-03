@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.rs.wxmgr.entity.WelcomeMsg;
 
 @Repository
-public class TestDao {
+public class WelcomeMsgDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
