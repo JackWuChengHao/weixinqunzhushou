@@ -50,7 +50,7 @@ public class WXHttpClient extends BasicCookieStore implements Serializable {
     private Date updateTime;
     private Map<String, Object> otherInfo;
     
-    public synchronized CloseableHttpResponse execute(HttpUriRequest request) 
+    public CloseableHttpResponse execute(HttpUriRequest request) 
             throws Exception {
         HttpClientContext context = new HttpClientContext();
         context.setCookieStore(this);

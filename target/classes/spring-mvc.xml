@@ -26,6 +26,10 @@
 	    </mvc:message-converters>  
 	</mvc:annotation-driven>
 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/JSP/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
 	<!--配置MultipartResolver"。 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

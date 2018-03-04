@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.rs.wxmgr.common.content.TXContentFlag;
 import com.rs.wxmgr.entity.QuestionAndAnswer;
 import com.rs.wxmgr.template.SolrQuestionTempldate;
 import com.rs.wxmgr.wechat.common.WXContact;
@@ -69,6 +70,14 @@ public class NewMessageListener implements SyncCheckListener{
 			}
 		}
 		
+//		try {
+//			FileInputStream in = new FileInputStream("C:/Users/zm/Pictures/收藏/]NX[D%$M$_`6C[NU_I[2TTW.jpg");
+//			byte[] bytes = org.apache.commons.io.IOUtils.toByteArray(in);
+//			MultipartUploadUtils.sendImageByUsername(client, bytes, "im.jpg", null);
+//			in.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	/**
@@ -95,18 +104,26 @@ public class NewMessageListener implements SyncCheckListener{
 		// @后自动回复
 		if(sayContent.contains("@"+client.getMyAccount().getNickName())) {
 			try {
-				QuestionAndAnswer questionAndAnswer = solrQuestionTemplate.queryByQuestion(sayContent);
+				String sayWords = sayContent.replace("@"+client.getMyAccount().getNickName(),"").trim();
+
 				String reply = "";
-				if(questionAndAnswer == null) {
-					reply = "未找到答案";
+				if(StringUtils.isBlank(sayWords)) {
+					reply = "http://"+TXContentFlag.CURRENT_SERVER+"/wechatass/multifunctionWizard";
 				} else {
-					reply = questionAndAnswer.getAnswer();
+					QuestionAndAnswer questionAndAnswer = solrQuestionTemplate.queryByQuestion(sayWords);
+					if(questionAndAnswer == null) {
+						reply = "未找到答案";
+					} else {
+						reply = questionAndAnswer.getAnswer();
+					}
 				}
+				
 				MessageUtils.sendMessageByUsername(client, group.getUsername(), "@" + sayMember.getNickname() + " " + reply);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 	
 	/**
