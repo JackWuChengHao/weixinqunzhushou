@@ -27,18 +27,14 @@ import com.rs.wxmgr.wechat.entity.SyncKey;
 
 public class WXHttpClient extends BasicCookieStore implements Serializable {
     
-    private static final long serialVersionUID = 1L;
-    private static final ThreadLocal<CloseableHttpClient> tl = new ThreadLocal<CloseableHttpClient>() {
-        @Override
-        protected CloseableHttpClient initialValue() {
-            return HttpClients.custom()
-                    .setUserAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.3103.400 QQBrowser/9.6.11372.400")
-                    .setRetryHandler(new RequestRetryHandler())
-                    .setDefaultRequestConfig(RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(6000).build())
-                    .build();
-        }
-    };
-    
+	private static final long serialVersionUID = 2634445938132721103L;
+	
+	private CloseableHttpClient httpClient = HttpClients.custom()
+            .setUserAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.3103.400 QQBrowser/9.6.11372.400")
+            .setRetryHandler(new RequestRetryHandler())
+            .setDefaultRequestConfig(RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(6000).build())
+            .build();
+
     private String status;
     private String uuid;
     private String baseHost;
@@ -54,26 +50,17 @@ public class WXHttpClient extends BasicCookieStore implements Serializable {
     private Date updateTime;
     private Map<String, Object> otherInfo;
     
-    public CloseableHttpResponse execute(HttpUriRequest request) 
+    public synchronized CloseableHttpResponse execute(HttpUriRequest request) 
             throws Exception {
-        
         HttpClientContext context = new HttpClientContext();
         context.setCookieStore(this);
-        return tl.get().execute(request, context);
+        return httpClient.execute(request, context);
     }
     
     public void close() throws Exception {
-        
-        tl.get().close();
-        tl.remove();
+    	httpClient.close();
     }
     
-    @Override
-    protected void finalize() throws Throwable {
-        
-        this.close();
-    }
-
     public Map<String, Object> getOtherInfo() {
         return otherInfo;
     }
