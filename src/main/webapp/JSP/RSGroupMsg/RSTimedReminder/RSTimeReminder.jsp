@@ -16,7 +16,7 @@
 				<div class="container">
 					<br />
 					<div class="form-group">
-						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>定时提醒</span> 
+						<img src="/wechatass/imgs/line.png">&nbsp;&nbsp;<span>定时提醒</span> 
 					</div>
 					<div class="form-group">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTimeReminderModel">

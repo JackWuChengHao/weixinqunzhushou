@@ -10,9 +10,6 @@
 <title>首页</title>
 </head>
 <body>
-
-
-
     <nav class="navbar p-navbar logo-professional" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -25,15 +22,13 @@
                 <a class="navbar-brand" href="http://z.xiaouguanjia.com/Login.aspx#"><i class="logo"></i>U聊后台管理系统</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0)">无锡若善文化传播有限公司</a></li>
+            <li><a href="javascript:void(0)">无锡市惠山区司法局</a></li>
         </ul>
         </div>
     </nav>
     <div class="container-fluid login">
         <div class="left-box">
-            
-              <img src="/wechatass/imgs/login-bg-3.jpg" class="bg">
-             
+			<img src="/wechatass/imgs/login-bg-3.jpg" class="bg">
         </div>
         <div class="main-box">
             <div class="open-link"></div>

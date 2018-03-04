@@ -15,17 +15,17 @@
 				<div class="container">
 					<br>
 					<div class="form-group">
-						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>信息分流</span> 
+						<img src="/wechatass/imgs/line.png">&nbsp;&nbsp;<span>信息分流</span> 
 					</div>
 					<hr/>
 					<div class="form-group">
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-4">
 							<button class="btn btn-success" style="height:100px;width:100px;">
 								法律咨询
 							</button>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-4">
 							<button class="btn btn-warning" style="height:100px;width:100px;">
 								法律援助
 							</button>

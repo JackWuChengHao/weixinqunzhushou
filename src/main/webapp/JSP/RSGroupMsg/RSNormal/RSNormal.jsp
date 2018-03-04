@@ -17,7 +17,7 @@
 				<div class="container">
 					<br />
 					<div class="form-group">
-						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>普通群发</span> 
+						<img src="/wechatass/imgs/line.png">&nbsp;&nbsp;<span>普通群发</span> 
 					</div>
 					<div class="form-group">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNormalModal">

@@ -15,7 +15,7 @@
 				<div class="container">
 					<br>
 					<div class="form-group">
-						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>我的助手</span> 
+						<img src="/wechatass/imgs/line.png">&nbsp;&nbsp;<span>我的助手</span> 
 					</div>
 					<hr/>
 					<div id="MyAssistantsList"></div>

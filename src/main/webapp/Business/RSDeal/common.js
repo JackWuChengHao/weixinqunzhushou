@@ -18,7 +18,7 @@ function bindCheckChoice(){
 		return;
 	}else{
 		var roomName = $("#hscommunities option:selected").text();
-		var tmp = roomName + "法律咨询";
+		var tmp = roomName + "矛盾调解";
 		$("#roomName").html(tmp);
 		$("#RSLawFAQModal").modal("show");
 	}

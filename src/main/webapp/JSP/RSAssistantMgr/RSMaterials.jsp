@@ -15,7 +15,7 @@
 				<div class="container">
 					<br>
 					<div class="form-group">
-						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>素材管理</span> 
+						<img src="/wechatass/imgs/line.png">&nbsp;&nbsp;<span>素材管理</span> 
 					</div>
 					<hr/>
 				</div>

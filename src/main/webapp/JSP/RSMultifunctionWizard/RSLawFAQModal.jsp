@@ -3,7 +3,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-			  <h4 class="modal-title" id="roomName">法律咨询</h4>
+			  <h4 class="modal-title" id="roomName">矛盾调解</h4>
 			</div>
 			<div class="modal-body">
 				<form>

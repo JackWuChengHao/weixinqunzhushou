@@ -69,7 +69,7 @@
 5、恶意干扰群内聊天（包括但不限于聚众挑衅滋事、滥发广告；持续使用尺寸过大的图片、大号字体等）；
 6、 严禁其他经管理员一致认为应禁止的活动及话题，其他事宜另行补充。
 </p>
-<div class="page-body" style="text-align:center;">
+		<div class="page-body" style="text-align:center;">
   			<h2>第6章  附则</h2>
 		</div>
 		<p>第31条  本制度由无锡市惠山区司法局制定并负责解释。</p>

@@ -12,29 +12,30 @@
 <body style="background-color:#223a5e">
 	<div class="container">
 		<div class="page-header" style="text-align:center;">
-  			<h1 style="color:#fafafa">请选择您所在的社区</h1>
-  			<h3 style="color:#fafafa">我们将为您转接相应的咨询室</h3>
-		</div>
-		<div class="row">
-			<select class="col-md-12 form-control" id="hscommunities">
-				<option value ="-1">--请选择--</option>
-				<option value ="1">苏庙社区</option>
-				<option value ="2">堰桥社区</option>
-				<option value="3">礼社村</option>
-				<option value="4">曙光村</option>
-				<option value="5">石塘湾社区</option>
-				<option value="6">寺头社区</option>
-				<option value="7">金惠社区</option>
-				<option value="8">陡门村</option>
-			</select>
-		</div>
-		<br/><br/>
-		<div class="row">
-			<button type="button" class="col-md-12 btn btn-success" id="enterRoom">进 入</button>
+  			<h1 style="color:#fafafa">请选择您所在的街道</h1>
+  			<h3 style="color:#fafafa">我们将为您转接相应的调解室</h3>
+		</div> 
+		<div class="row" style="text-align:center;">
+			<div class="col-md-4 col-md-offset-4 ">
+				<select class="form-control" id="hscommunities">
+					<option value ="-1">--请选择--</option>
+					<option value ="1">长安街道</option>
+					<option value ="2">堰桥街道</option>
+					<option value="3">前洲街道</option>
+					<option value="4">玉祁街道</option>
+					<option value="5">洛社镇</option>
+					<option value="6">钱桥街道</option>
+					<option value="7">阳山镇</option>
+				</select>
+			</div>
 		</div>
 		<br/><br/>
-		<div class="row">
-			<a href="/wechatass/JSP/RSMultifunctionWizard/RSMultifunctionWizard.jsp"><button type="button" class="col-md-12 btn btn-danger">返 回</button></a>
+		<div class="row" style="text-align:center;">
+			<button type="button" class="col-md-4 col-md-offset-4 btn btn-success" id="enterRoom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进 入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+		</div>
+		<br/><br/>
+		<div class="row" style="text-align:center;">
+			<a href="/wechatass/JSP/RSMultifunctionWizard/RSMultifunctionWizard.jsp"><button type="button" class="col-md-4 col-md-offset-4 btn btn-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返 回&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
 		</div>
 	</div>
 	
