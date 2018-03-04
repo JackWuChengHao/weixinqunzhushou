@@ -45,5 +45,7 @@
 <script type="text/javascript" src="/wechatass/Business/common/common.js"></script>
 <script type="text/javascript" src="/wechatass/Business/RSQuestionAndAnswer/init.js"></script>
 <script type="text/javascript" src="/wechatass/Business/RSQuestionAndAnswer/list.js"></script>
-
+ 
+<script type="text/javascript"
+	src="/wechatass/Business/RSAutoService/list.js"></script>
 </html>

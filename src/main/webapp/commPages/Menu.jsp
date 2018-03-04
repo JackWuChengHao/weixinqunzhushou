@@ -33,10 +33,6 @@
 			<span class="menu-text">定时群发</span>
 		</a></li>
 		
-<!-- 		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSBatchOperate.jsp" class="dropdown-toggle"> -->
-<!-- 			<span class="glyphicon glyphicon-th"></span>  -->
-<!-- 			<span class="menu-text">批量操作</span> -->
-<!-- 		</a></li> -->
 		
 		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSGroupMsgs.jsp" class="dropdown-toggle">
 			<span class="glyphicon glyphicon-list-alt"></span> 
@@ -44,10 +40,10 @@
 		</a></li>
 		
 		
-		<li id=""><a href="/wechatass/JSP/RSMsgGuard/RSMsgGuard.jsp" class="dropdown-toggle">
-			<span class="glyphicon glyphicon-eye-open"></span> 
-			<span class="menu-text">群消息监控</span>
-		</a></li>
+<!-- 		<li id=""><a href="/wechatass/JSP/RSMsgGuard/RSMsgGuard.jsp" class="dropdown-toggle"> -->
+<!-- 			<span class="glyphicon glyphicon-eye-open"></span>  -->
+<!-- 			<span class="menu-text">群消息监控</span> -->
+<!-- 		</a></li> -->
 		
 		<li id=""><a href="/wechatass/JSP/RSDataCount/RSDataCount.jsp" class="dropdown-toggle">
 			<span class="glyphicon glyphicon-stats"></span> 
@@ -55,8 +51,13 @@
 		</a></li>
 		
 		<li id=""><a href="/wechatass/JSP/RSQuestionAndAnswer/RSQuestionAndAnswer.jsp" class="dropdown-toggle">
-			<span class="glyphicon glyphicon-stats"></span> 
+			<span class="glyphicon glyphicon-folder-open"></span> 
 			<span class="menu-text">问答</span>
+		</a></li>
+		
+		<li id=""><a href="/wechatass/JSP/RSAutoService/RSAutoService.jsp" class="dropdown-toggle">
+			<span class="glyphicon glyphicon-wrench"></span> 
+			<span class="menu-text">分流信息处理</span>
 		</a></li>
 		
 	</ul>
