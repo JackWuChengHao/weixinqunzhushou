@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rs.wxmgr.service.TestService;
+import com.rs.wxmgr.template.SolrQuestionTempldate;
 import com.rs.wxmgr.wechat.common.WXContact;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
 import com.rs.wxmgr.wechat.entity.Group;
@@ -66,23 +67,17 @@ public class Robot implements Closeable {
 	private ThreadPoolExecutor threadPoolExecutor = 
 			new ThreadPoolExecutor(1, 10, 1, TimeUnit.MINUTES,new LinkedBlockingQueue<Runnable>());
 	
-//	/**
-//	 * 检测组群成员增加的间隔
-//	 */
-//	private static final long GROUP_MEMBER_ADD_INTERVAL = 3000L;
-	
-//	private Timer reflushContactTimer;
-//    private TimerTask reflushContactTask;
-	
 	private TestService testService;
+	private SolrQuestionTempldate solrQuestionTemplate;
 	
-	public Robot(TestService testService) {
+	public Robot(TestService testService,SolrQuestionTempldate solrQuestionTemplate) {
 		this.testService = testService;
+		this.solrQuestionTemplate = solrQuestionTemplate;
 		initListener();
 	}
 	
 	private void initListener() {
-		listenerList.add(new NewMessageListener(client,contact));
+		listenerList.add(new NewMessageListener(client,contact,solrQuestionTemplate));
 		listenerList.add(new GroupMemberChangeListener(client, contact,testService));
 	}
 	
@@ -248,28 +243,6 @@ public class Robot implements Closeable {
 		return MessageUtils.sendMessageByUsername(client, username, message);
 	}
 	
-//	/**
-//	 * 向有新人的组群发送消息
-//	 * @throws Exception
-//	 */
-//	private void sendGroupMessageForUserAdd(Group group) throws Exception{
-//		if(group == null || StringUtils.isBlank(group.getUsername())) {
-//			return;
-//		}
-//		Group oldGroup = contact.getGroup(group.getUsername());
-//		if(oldGroup != null) {
-//			// 组群人数减少
-//			if(oldGroup.getMemnerList().size() < group.getMemnerList().size()) {
-//				List<WelcomeMsg> messageList = testService.selectMessageList();
-//				int index = new Random().nextInt(messageList.size());
-//				if(index!=0&&index==messageList.size()) index--;
-//				String message = messageList.get(index).getMessage();
-//				
-//				sendMessage(message, group.getUsername());
-//			}
-//		}
-//	}
-	
 	/**
 	 * 是否在线
 	 * @return
@@ -277,34 +250,6 @@ public class Robot implements Closeable {
 	public boolean isOnline() {
 		return isOnline;
 	}
-	
-//	/**
-//	 * 定时任务刷新组群信息。
-//	 * 因为心跳包不会发送组群人员变动,只能定时刷群成员情况
-//	 */
-//	private void startReflushGroupContact() {
-//		reflushContactTimer = new Timer();
-//	    reflushContactTask = new TimerTask() {
-//			@Override
-//			public void run() {
-//				try {
-//					reflushContact();
-//				} catch (Exception e) {
-//					logger.error(e.getMessage(), e);
-//				}
-//			}
-//		};
-//		reflushContactTimer.schedule(reflushContactTask, 0, GROUP_MEMBER_ADD_INTERVAL);
-//	}
-//	/**
-//	 * 关闭刷新联系人定时任务
-//	 */
-//	private void stopReflushGroupContact() {
-//		reflushContactTask.cancel();
-//		reflushContactTimer.purge();
-//		reflushContactTimer.cancel();
-//		reflushContactTask=null;
-//	}
 	
 	/**
 	 * 上线后的操作

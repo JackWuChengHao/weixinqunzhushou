@@ -54,6 +54,11 @@
 			<span class="menu-text">数据统计</span>
 		</a></li>
 		
+		<li id=""><a href="/wechatass/JSP/RSQuestionAndAnswer/RSQuestionAndAnswer.jsp" class="dropdown-toggle">
+			<span class="glyphicon glyphicon-stats"></span> 
+			<span class="menu-text">问答</span>
+		</a></li>
+		
 	</ul>
 	
 	<div class="sidebar-collapse" id="sidebar-collapse">

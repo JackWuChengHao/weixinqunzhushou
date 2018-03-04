@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QuestionAndAnswerMapper">
+
+	<resultMap id="QuestionAndAnswerMap" type="QuestionAndAnswer">
+		<id property="id" column="id"></id>
+		<result property="keywords" column="keywords"></result>
+		<result property="question" column="question"></result>
+		<result property="answer" column="answer"></result>
+	</resultMap>
+	
+	<select id="selectQuestionAndAnswerList" parameterType="map" resultMap="QuestionAndAnswerMap">
+		select * from T_QuestionAndAnswer
+	</select>
+	
+	<insert id="insertQuestionAndAnswer" parameterType="QuestionAndAnswer" useGeneratedKeys="true" keyProperty="id">
+		insert into T_QuestionAndAnswer (keywords,question,answer) VALUES(#{keywords},#{question},#{answer})
+	</insert>
+	
+	<delete id="deleteQuestionAndAnswerById" parameterType="int">
+		delete from T_QuestionAndAnswer where id = #{id}
+	</delete>
+	
+</mapper>

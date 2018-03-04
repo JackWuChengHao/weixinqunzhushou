@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.rs.wxmgr.entity.QuestionAndAnswer;
+import com.rs.wxmgr.template.SolrQuestionTempldate;
 import com.rs.wxmgr.wechat.common.WXContact;
 import com.rs.wxmgr.wechat.common.WXHttpClient;
 import com.rs.wxmgr.wechat.entity.Group;
@@ -22,9 +24,11 @@ public class NewMessageListener implements SyncCheckListener{
 
 	private WXContact contact;
 	private WXHttpClient client;
-	public NewMessageListener(WXHttpClient client,WXContact contact) {
+	private SolrQuestionTempldate solrQuestionTemplate;
+	public NewMessageListener(WXHttpClient client,WXContact contact,SolrQuestionTempldate solrQuestionTemplate) {
 		this.contact = contact;
 		this.client = client;
+		this.solrQuestionTemplate = solrQuestionTemplate;
 	}
 
 	public void handle(JSONObject json) {
@@ -91,7 +95,14 @@ public class NewMessageListener implements SyncCheckListener{
 		// @后自动回复
 		if(sayContent.contains("@"+client.getMyAccount().getNickName())) {
 			try {
-				MessageUtils.sendMessageByUsername(client, group.getUsername(), "@" + sayMember.getNickname() + " " + "@我干嘛");
+				QuestionAndAnswer questionAndAnswer = solrQuestionTemplate.queryByQuestion(sayContent);
+				String reply = "";
+				if(questionAndAnswer == null) {
+					reply = "未找到答案";
+				} else {
+					reply = questionAndAnswer.getAnswer();
+				}
+				MessageUtils.sendMessageByUsername(client, group.getUsername(), "@" + sayMember.getNickname() + " " + reply);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

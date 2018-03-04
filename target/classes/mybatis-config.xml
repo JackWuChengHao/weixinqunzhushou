@@ -11,6 +11,7 @@
 
  	<typeAliases>
 		<typeAlias type="com.rs.wxmgr.entity.WelcomeMsg" alias="WelcomeMsg"></typeAlias>
+		<typeAlias type="com.rs.wxmgr.entity.QuestionAndAnswer" alias="QuestionAndAnswer"></typeAlias>
 	</typeAliases>
 	
 	<plugins>
@@ -21,5 +22,6 @@
 	
 	<mappers>
 		<mapper resource="mapper/TXWelcomeMsgMapper.xml"></mapper>
+		<mapper resource="mapper/QuestionAndAnswer.xml"></mapper>
 	</mappers>
 </configuration>

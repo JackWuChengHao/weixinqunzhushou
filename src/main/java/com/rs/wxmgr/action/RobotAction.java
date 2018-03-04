@@ -27,9 +27,9 @@ import com.rs.wxmgr.service.WXRobotFactory;
 import com.rs.wxmgr.wechat.Robot;
 
 @Controller
-public class TXTestAction {
+public class RobotAction {
 	
-	private static final Logger logger = LoggerFactory.getLogger(TXTestAction.class);
+	private static final Logger logger = LoggerFactory.getLogger(RobotAction.class);
 	
 	@Autowired
 	private TestService testService;
