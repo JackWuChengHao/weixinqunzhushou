@@ -15,41 +15,28 @@
 				<div class="container">
 					<br>
 					<div class="form-group">
-						<img src="/webapp/imgs/line.png">&nbsp;&nbsp;<span>群数据统计</span> 
+						<img src="/wechatass/imgs/line.png">&nbsp;&nbsp;<span>群数据统计</span> 
 					</div>
 					<hr />
-					<div class="row" style="height:20px;">
-						<div class="col-md-2" style="color:#223a5e;">23个 &nbsp;&nbsp;总群数</div>
-						<div class="col-md-2" style="color:#223a5e;">50个 &nbsp;&nbsp;去重前人数</div>
-						<div class="col-md-2" style="color:#223a5e;">0个 &nbsp;&nbsp;入群人数</div>
-						<div class="col-md-2" style="color:#223a5e;">0个 &nbsp;&nbsp;退群人数</div>
-					</div>
-					<br/>
 					<div class="row" >
-						<div id="datacharts" style="width: 80%px;height:400px;"></div>
-					</div>
-					<div class="row" style="height:30px;">
-						<span class="col-md-1">详细数据 </span>
-						<select class="col-md-1"><option>今天</option></select>
-						&nbsp;&nbsp;
-						<button type="button" id="add_welcome" class="btn btn-primary" > 搜索</button>
-						<button type="button" id="add_welcome" class="btn btn-primary" >数据导出</button>
+						<div class="col-md-4" id="chatTime" style="height:500px;width:400px"></div>
+						<div class="col-md-4" id="radarChart" style="height:500px;width:400px"></div>
+						<div class="col-md-4" id="popgroupChart" style="height:500px;width:400px"></div>
 					</div>
 					<br/>
-					<div id="datacounttable"></div>
+					<div id="datacounttable" style="height:500px;width:1200px"></div>
 					<br/>
 				</div>
-			
 			</div>
 		</div>
 	</div>
 	<jsp:include page="/commPages/Foot.jsp" flush="true"></jsp:include>
 	<jsp:include page="/commPages/commJS.jsp" flush="true"></jsp:include>
+	<jsp:include page="/commPages/chartscommon.jsp" flush="true"></jsp:include>
 </body>
 
-<script type="text/javascript"
-	src="/wechatass/Business/DataCount/list.js"></script>
-<script type="text/javascript"
-	src="/wechatass/Business/DataCount/init.js"></script>
+<!-- <script type="text/javascript" -->
+<!-- 	src="/wechatass/Business/DataCount/list.js"></script> -->
+	<script type="text/javascript" src="/wechatass/Business/DataCount/init.js"></script>
 	
 </html>

@@ -34,10 +34,10 @@
 		</a></li>
 		
 		
-		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSGroupMsgs.jsp" class="dropdown-toggle">
-			<span class="glyphicon glyphicon-list-alt"></span> 
-			<span class="menu-text">群信息详情</span>
-		</a></li>
+<!-- 		<li id=""><a href="/wechatass/JSP/RSWechatGroupMgr/RSGroupMsgs.jsp" class="dropdown-toggle"> -->
+<!-- 			<span class="glyphicon glyphicon-list-alt"></span>  -->
+<!-- 			<span class="menu-text">群信息详情</span> -->
+<!-- 		</a></li> -->
 		
 		
 <!-- 		<li id=""><a href="/wechatass/JSP/RSMsgGuard/RSMsgGuard.jsp" class="dropdown-toggle"> -->

@@ -18,8 +18,8 @@ MyAssistantsList.ajaxCallback = function(data){
 			index: i+1, 
 			id : data["rows"][i]["id"],
 			name : '桃娃助手1号',
-			num:'1/100',
-			time:'2018-2-25'
+			num:'12/100',
+			time:'2018-3-4'
 		});
 	}
 };

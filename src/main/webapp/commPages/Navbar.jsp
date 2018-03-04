@@ -13,7 +13,7 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a id=""></a></li>			
-					<li><a id="" style="font-size:15px;">欢迎您！<span id="currentUser"></span></a></li>
+					<li><a id="" style="font-size:15px;">欢迎您！许骏<span id="currentUser"></span></a></li>
 					<li id=""><a href="/wechatass/JSP/login.jsp" style="font-size:15px;">注销</a></li>
 					<li id="currentDepartmentName" style="display: none;"></li>
 				</ul>

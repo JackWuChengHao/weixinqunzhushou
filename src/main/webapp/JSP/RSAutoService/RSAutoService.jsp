@@ -24,6 +24,11 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	window.onload=function(){
+   		alert("分流信息处理即将上线")
+   	}
+	</script>
 	<jsp:include page="/commPages/Foot.jsp" flush="true"></jsp:include>
 	<jsp:include page="/commPages/commJS.jsp" flush="true"></jsp:include>
 </body>
