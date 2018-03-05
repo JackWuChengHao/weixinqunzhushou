@@ -7,39 +7,42 @@
 <link rel="stylesheet" type="text/css" href="/wechatass/Static/Plugin/sweetalert/css/sweetalert.css" />
 <link rel="stylesheet" type="text/css" href="/wechatass/Static/Plugin/webui-popover/css/jquery.webui-popover.css" />
 <link rel="stylesheet" type="text/css" href="/wechatass/CSS/RSWechatMgrStyle.css" />
-<title>法律咨询</title>
+<title>矛盾调解</title>
 </head>
-<body style="background-color:#223a5e">
+<body>
 	<div class="container">
 		<div class="page-header" style="text-align:center;">
-  			<h1 style="color:#fafafa">请选择您所在的街道</h1>
-  			<h3 style="color:#fafafa">我们将为您转接相应的调解室</h3>
+  			<h1>请填写以下信息</h1>
+  			<h3>（带“*”为必填项）</h3>
 		</div> 
+		<div class="form-group">
+			<label class="col-md-3 control-label" style="text-align:center;font-size:30px;">姓名<span style="color:red;">*</span></label>
+		  	<div class="col-md-9">
+		  		<input class="form-control" id="name" style="height:70px;font-size:35px;"/>
+		  	</div>
+		</div><br/>
+		<div class="form-group">
+			<label class="col-md-3 control-label" style="text-align:center;font-size:30px;">证件号码<span style="color:red;">*</span></label>
+			<div class="col-md-9">
+		  		<input class="form-control" id="cardnum" style="height:70px;font-size:35px;"/>
+		  	</div>
+		</div><br/>
+		<div class="form-group">
+			<label class="col-md-3 control-label" style="text-align:center;font-size:30px;">联系电话<span style="color:red;">*</span></label>
+			<div class="col-md-9">
+		  		<input class="form-control" id="phone" style="height:70px;font-size:35px;"/>
+		  	</div>
+		</div><br/>	
+		
 		<div class="row" style="text-align:center;">
-			<div class="col-md-4 col-md-offset-4 ">
-				<select class="form-control" id="hscommunities">
-					<option value ="-1">--请选择--</option>
-					<option value ="1">长安街道</option>
-					<option value ="2">堰桥街道</option>
-					<option value="3">前洲街道</option>
-					<option value="4">玉祁街道</option>
-					<option value="5">洛社镇</option>
-					<option value="6">钱桥街道</option>
-					<option value="7">阳山镇</option>
-				</select>
-			</div>
+			<button type="button" class="col-md-4 col-md-offset-4 btn btn-success" style="font-size:35px;width:450px;height:100px;" id="enterRoom">提 交</button>
 		</div>
 		<br/><br/>
 		<div class="row" style="text-align:center;">
-			<button type="button" class="col-md-4 col-md-offset-4 btn btn-success" id="enterRoom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进 入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-		</div>
-		<br/><br/>
-		<div class="row" style="text-align:center;">
-			<a href="/wechatass/JSP/RSMultifunctionWizard/RSMultifunctionWizard.jsp"><button type="button" class="col-md-4 col-md-offset-4 btn btn-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返 回&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
+			<a href="/wechatass/JSP/RSMultifunctionWizard/RSMultifunctionWizard.jsp"><button type="button" class="col-md-4 col-md-offset-4 btn btn-danger" style="font-size:35px;width:450px;height:100px;">返 回</button></a>
 		</div>
 	</div>
 	
-	<jsp:include page="./RSLawFAQModal.jsp" flush="true"></jsp:include>
     <script type="text/javascript" src="/wechatass/Static/jQuery/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Plugin/sweetalert/js/sweetalert.min.js"></script>
