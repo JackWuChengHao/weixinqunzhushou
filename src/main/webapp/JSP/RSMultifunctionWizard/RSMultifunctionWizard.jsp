@@ -22,7 +22,7 @@
 		</div>
 		<br/><br/><br/><br/>
 		<div class="row" style="text-align:center;">
-			<a href="/wechatass/JSP/RSMultifunctionWizard/RSLawHelp.html"><button type="button" class="col-md-4 col-md-offset-4 btn btn-success" style="font-size:35px;width:450px;height:100px;">&nbsp;&nbsp;&nbsp;&nbsp;法 律 援 助&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
+			<a href="/wechatass/JSP/RSMultifunctionWizard/RSLawHelp.jsp"><button type="button" class="col-md-4 col-md-offset-4 btn btn-success" style="font-size:35px;width:450px;height:100px;">&nbsp;&nbsp;&nbsp;&nbsp;法 律 援 助&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
 		</div>
 		<br/><br/><br/><br/>
 		<div class="row" style="text-align:center;">
@@ -31,13 +31,12 @@
 		<br/><br/><br/><br/>
 	</div>
 	
-	
+	<jsp:include page="./RSLawFAQModal.jsp" flush="true"></jsp:include>
     <script type="text/javascript" src="/wechatass/Static/jQuery/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Plugin/sweetalert/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Plugin/webui-popover/js/jquery.webui-popover.js"></script>
 	<script type="text/javascript" src="/wechatass/Business/common/common.js"></script>
-	<script type="text/javascript" src="/wechatass/Business/RSDeal/common.js"></script>
 	
 </body>
 </html>

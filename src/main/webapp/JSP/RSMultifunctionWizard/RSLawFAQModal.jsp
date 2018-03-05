@@ -5,9 +5,8 @@
 			<div class="modal-body">
 				
 			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-default" id="cancelQuestion">取消</button>
-			  <button type="button" class="btn btn-primary" id="commitQuestion">发送</button>
+			<div class="modal-footer" style="text-align:center;">
+			  <button type="button" class="btn btn-primary" id="commitQuestion">取消</button>
 			</div>
 		</div>
 	</div>
