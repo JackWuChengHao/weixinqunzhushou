@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PublicAskMapper">
+
+	<select id="selectPublicAskList" parameterType="map" resultType="PublicAsk">
+		select * from T_PublicAsk
+	</select>
+	
+	<select id="selectPublicAskById" parameterType="Integer" resultType="PublicAsk">
+		select * from T_PublicAsk where id = #{id}
+	</select>
+	
+	<insert id="insertPublicAsk" parameterType="PublicAsk" useGeneratedKeys="true" keyProperty="id">
+		insert into T_PublicAsk (name,personalId,phone
+		<if test="content != null and content != ''">,content</if>
+		<if test="voiceGroup != null and voiceGroup != ''">,voiceGroup</if>
+		<if test="voiceIndex != null and voiceIndex != ''">,voiceIndex</if>
+		<if test="picGroup != null and picGroup != ''">,picGroup</if>
+		<if test="picIndex != null and picIndex != ''">,picIndex</if>,askType,createTime)
+		VALUES(#{name},#{personalId},#{phone}
+		<if test="content != null and content != ''">,#{content}</if>
+		<if test="voiceGroup != null and voiceGroup != ''">,#{voiceGroup}</if>
+		<if test="voiceIndex != null and voiceIndex != ''">,#{voiceIndex}</if>
+		<if test="picGroup != null and picGroup != ''">,#{picGroup}</if>
+		<if test="picIndex != null and picIndex != ''">,#{picIndex}</if>,#{askType},#{createTime})
+	</insert>
+	
+	
+</mapper>

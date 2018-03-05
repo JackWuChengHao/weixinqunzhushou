@@ -24,12 +24,15 @@
 			</div>
 		</div>
 	</div>
-	<script>
-	window.onload=function(){
-   		alert("分流信息处理即将上线")
-   	}
-	</script>
 	<jsp:include page="/commPages/Foot.jsp" flush="true"></jsp:include>
 	<jsp:include page="/commPages/commJS.jsp" flush="true"></jsp:include>
 </body>
+
+    <script type="text/javascript" src="/wechatass/Static/jQuery/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/wechatass/Static/Bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/wechatass/Static/Plugin/sweetalert/js/sweetalert.min.js"></script>
+	<script type="text/javascript" src="/wechatass/Static/Plugin/webui-popover/js/jquery.webui-popover.js"></script>
+	<script type="text/javascript" src="/wechatass/Business/common/common.js"></script>
+	<script type="text/javascript" src="/wechatass/Business/Multifunction/autoservice.js"></script>
+
 </html>

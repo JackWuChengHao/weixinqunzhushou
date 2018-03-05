@@ -12,6 +12,7 @@
  	<typeAliases>
 		<typeAlias type="com.rs.wxmgr.entity.WelcomeMsg" alias="WelcomeMsg"></typeAlias>
 		<typeAlias type="com.rs.wxmgr.entity.QuestionAndAnswer" alias="QuestionAndAnswer"></typeAlias>
+		<typeAlias type="com.rs.wxmgr.wechat.entity.PublicAsk" alias="PublicAsk"></typeAlias>
 	</typeAliases>
 	
 	<plugins>
@@ -23,5 +24,6 @@
 	<mappers>
 		<mapper resource="mapper/TXWelcomeMsgMapper.xml"></mapper>
 		<mapper resource="mapper/QuestionAndAnswer.xml"></mapper>
+		<mapper resource="mapper/PublicAsk.xml"></mapper>
 	</mappers>
 </configuration>

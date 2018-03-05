@@ -12,8 +12,7 @@
 <body>
 	<div class="container">
 		<div class="page-header" style="text-align:center;">
-  			<h1>请填写以下信息</h1>
-  			<h3>（带“*”为必填项）</h3>
+  			<h1>矛盾调解</h1>
 		</div> 
 		<div class="form-group">
 			<label class="col-md-3 control-label" style="text-align:center;font-size:30px;">姓名<span style="color:red;">*</span></label>
@@ -55,7 +54,10 @@
 	<script type="text/javascript" src="/wechatass/Static/Plugin/sweetalert/js/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/wechatass/Static/Plugin/webui-popover/js/jquery.webui-popover.js"></script>
 	<script type="text/javascript" src="/wechatass/Business/common/common.js"></script>
-
+	<script type="text/javascript" src="/wechatass/Business/Multifunction/init.js"></script>
+	
+	
+	
 
 </body>
 </html>
